@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="css/fonts.css">
+	<link rel="stylesheet" href="css/common.css?a=6">
+	<script src="js/common.js?a=1"></script>
+
+</head>
+<style>
+	#app {
+		padding: 40px;
+		padding-top: 40%;
+	}
+
+	#bornes {
+		position: absolute;
+
+		/* border: 2px yellow solid; */
+		/* display: flex; */
+		box-sizing: border-box;
+		height: 100%;
+		width: 100%;
+	}
+
+	#bornes .tile {
+
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		min-width: 0;
+		color: white;
+		border: 1px solid white;
+		min-width: 400px;
+		height: 400px;
+	}
+</style>
+
+<body>
+	<div id="app">
+		<h1>Bornes</h1>
+		<div id="bornes"></div>
+	</div>
+
+
+	<script>
+		window.onload = function () {
+			fillScreen()
+			console.log(window.localStorage.getItem('borne'))
+			if (window.localStorage.getItem('borne')) {
+				window.location = "app.html"
+			}
+			for (let i = 1; i <= 6; i++) {
+				let div = document.createElement("div");
+				div.classList.add('tile');
+				div.innerText = i
+				div.addEventListener('click', function () {
+					window.localStorage.setItem('borne', i)
+					window.location = "app.html"
+				})
+				document.querySelector('#bornes').append(div)
+			}
+		}
+	</script>
+</body>
+
+</html>

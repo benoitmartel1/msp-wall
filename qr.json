@@ -1,0 +1,17 @@
+{
+  "qrCodes": [
+    { "video": "default", "url": "https://montsaintpierre.ca/" },
+    { "video": "delta", "url": "https://montsaintpierre.ca/delta" },
+    { "video": "para", "url": "https://montsaintpierre.ca/para" },
+    { "video": "gravier", "url": "https://montsaintpierre.ca/gravier" },
+    { "video": "neige", "url": "https://montsaintpierre.ca/neige" },
+    { "video": "glace", "url": "https://montsaintpierre.ca/glace" },
+    { "video": "poudreuse", "url": "https://montsaintpierre.ca/poudreuse" },
+    { "video": "soleil", "url": "https://montsaintpierre.ca/soleil" },
+    { "video": "zero", "url": "https://montsaintpierre.ca/zero" },
+    { "video": "sommet", "url": "https://montsaintpierre.ca/sommet" },
+    { "video": "ciel", "url": "https://montsaintpierre.ca/ciel" },
+    { "video": "rando", "url": "https://montsaintpierre.ca/rando" },
+    { "video": "velo", "url": "https://montsaintpierre.ca/velo" }
+  ]
+}

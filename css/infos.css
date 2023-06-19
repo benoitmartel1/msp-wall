@@ -1,0 +1,147 @@
+#infos .wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+
+  height: 100%;
+  width: 100%;
+}
+#infos img {
+  cursor: pointer;
+}
+.qr div,
+.top {
+  display: flex;
+  justify-content: center;
+  /* align-items: center; */
+}
+.qr img {
+  border: 18px solid white;
+}
+.qr .text {
+  font-size: 0.5em;
+  opacity: 0.3;
+  margin: 20px 0;
+}
+
+#infos > div {
+  text-align: center;
+  width: 100%;
+}
+.top {
+  align-items: end;
+  /* padding: 200px;
+  padding-top: 300px; */
+  /* position: absolute; */
+  width: 100%;
+  height: 1000px;
+  /* border: 2px solid yellow; */
+}
+.top svg {
+  /* border: 2px solid yellow; */
+
+  width: 1550px;
+  margin-left: 60px;
+}
+.mid {
+  width: 100%;
+  flex-grow: 1;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: end;
+}
+.information {
+  width: 730px;
+  margin-bottom: 40px;
+}
+.bottom {
+  /* border: 2px solid orange; */
+  width: 100%;
+  height: 1980px;
+}
+.featured img {
+  width: 330px;
+  margin: 0 85px;
+}
+.featured img.disabled {
+  filter: saturate(0);
+}
+.carousel-wrapper {
+  height: 630px;
+  /* border: 2px solid yellow; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.carousel-wrapper .arrow {
+  cursor: pointer;
+  width: 150px;
+  margin: 0 10px;
+  border-top: 40px solid transparent;
+  border-bottom: 40px solid transparent;
+  border-left: 70px solid white;
+}
+.arrow.left {
+  transform: scaleX(-1);
+}
+
+#carousel {
+  height: 342px;
+  overflow: hidden;
+  position: relative;
+  width: 60%;
+}
+
+#carousel div {
+  position: absolute;
+  transition: transform 1s, left 1s, opacity 1s, z-index 0s;
+  opacity: 1;
+  transform-origin: 0 center;
+}
+#carousel div img {
+  height: 342px;
+}
+
+#carousel div.hideLeft {
+  left: 0%;
+  opacity: 0;
+  transform: scale(0.75) translateX(-65%);
+}
+
+#carousel div.hideRight {
+  left: 100%;
+  opacity: 0;
+  transform: scale(0.75) translateX(-35%);
+}
+
+#carousel div.selected {
+  z-index: 10;
+  left: 50%;
+  transform: translateX(-50%);
+}
+#carousel div.prev {
+  z-index: 5;
+  left: 30%;
+  transform: scale(0.75) translateX(-45%);
+}
+
+#carousel div.next {
+  z-index: 5;
+  left: 70%;
+  transform: scale(0.75) translateX(-55%);
+}
+#carousel div.prevLeftSecond {
+  z-index: 4;
+  left: 15%;
+  transform: scale(0.75) translateX(-55%);
+  opacity: 0.7;
+}
+#carousel div.nextRightSecond {
+  z-index: 4;
+  left: 85%;
+  transform: scale(0.75) translateX(-45%);
+  opacity: 0.7;
+}

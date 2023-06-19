@@ -1,0 +1,107 @@
+:root {
+  --app-width: 2160px;
+  --app-height: 3840px;
+}
+
+body {
+  font-family: 'Agenda';
+  color: white;
+  letter-spacing: 1px;
+  line-height: normal;
+  font-size: 120px;
+  margin: 0;
+  padding: 0;
+  background-color: #333;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Woodland';
+  font-weight: 800;
+}
+* {
+  -webkit-tap-highlight-color: transparent;
+  box-sizing: border-box;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+#app {
+  width: var(--app-width);
+  height: var(--app-height);
+  border: 1px white solid;
+  background-color: black;
+  transform-origin: 0 0;
+  overflow: hidden;
+}
+#menu,
+#player,
+#infos,
+#back {
+  z-index: 1;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  /* visibility: hidden; */
+  transition: opacity 300ms ease-out;
+}
+
+#menu.visible,
+#player.visible,
+#infos.visible {
+  opacity: 1;
+
+  /* visibility: visible; */
+}
+
+#player #video {
+  width: 100%;
+
+  object-fit: fill;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 5;
+}
+video {
+  opacity: 1;
+  transition: opacity 600ms;
+}
+video.disabled {
+  opacity: 0;
+}
+#back {
+  opacity: 1;
+  z-index: 0;
+}
+#back video {
+  transition: all 600ms ease-out;
+  width: 100%;
+}
+#back.blurred video {
+  filter: blur(30px);
+  -webkit-filter: blur(30px);
+  -moz-filter: blur(30px);
+  -ms-filter: blur(30px);
+  -o-filter: blur(30px);
+  transform: scale(1.02);
+}
+.front {
+  z-index: 20 !important;
+}
+.template {
+  position: absolute;
+  width: 100%;
+  /* height: 100%; */
+  z-index: 500;
+  opacity: 0.5;
+  pointer-events: none;
+}

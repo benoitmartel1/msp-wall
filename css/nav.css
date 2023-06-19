@@ -1,0 +1,64 @@
+/* #nav .tiles svg {
+  margin: -50px;
+  transform: scale(0.5);
+} */
+
+#nav {
+  transition: width 200ms ease-out;
+  cursor: pointer;
+  width: 80px;
+  color: white;
+  background-color: rgba(88, 115, 161, 0.6);
+  opacity: 0.8;
+  border-radius: 0 20px 20px 0;
+  position: absolute;
+  z-index: 100;
+  left: 0;
+  top: 61.5%;
+  padding: 20px 0px;
+  /* text-align: center; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 260px;
+}
+#nav.opened {
+  width: 160px;
+}
+
+#btn-info,
+#btn-back,
+#btn-open {
+  margin: 15px;
+  display: flex;
+  width: 82px;
+}
+#btn-open {
+  display: block;
+  width: 45px;
+}
+#nav .info,
+#nav .back,
+#nav.opened .open {
+  transition: opacity 300ms;
+  display: none;
+}
+#nav.opened .info,
+#nav.opened .back {
+  display: block;
+}
+#nav .info.disabled,
+#nav .back.disabled {
+  opacity: 0.3;
+}
+.secret {
+  position: absolute;
+  z-index: 800;
+  right: 0;
+  top: 0;
+  background-color: white;
+  width: 300px;
+  height: 300px;
+  opacity: 0.1;
+}

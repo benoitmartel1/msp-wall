@@ -1,0 +1,16 @@
+@font-face {
+  font-family: "Woodland";
+  src: url("fonts/Woodland/PPWoodland-Bold.otf") format("truetype");
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "Woodland";
+  src: url("fonts/Woodland/PPWoodland-Ultralight.otf") format("truetype");
+  font-weight: 400;
+}
+@font-face {
+  font-family: "Agenda";
+  src: url("fonts/Agenda/Agenda_Medium.otf") format("truetype");
+  font-weight: 400;
+}
