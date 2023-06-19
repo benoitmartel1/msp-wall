@@ -1,7 +1,6 @@
 async function initMenuItems(borne) {
   //Define the click zones
   document.querySelectorAll('.clickZone').forEach((item, index) => {
-    console.log(index);
     let id = borne.choices[index].id;
 
     //Set the SVG clip path

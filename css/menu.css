@@ -19,10 +19,6 @@
   height: 100%;
 }
 
-.choice.selected img {
-  filter: sepia(100%) hue-rotate(-45deg);
-}
-
 .choice img {
   transition: filter 400ms ease;
   width: 100%;
@@ -39,17 +35,23 @@
   z-index: 110;
   display: inline-flex;
   top: 45%;
+  transition: transform 300ms ease-out;
 }
 
 .choice:nth-of-type(1) .title {
   left: 12%;
   top: 37%;
   transform: rotate(-12deg);
-  /* color: black; */
 }
 
 .choice:nth-of-type(2) .title {
   right: 12%;
   top: 53%;
   transform: rotate(10deg);
+}
+.choice:nth-of-type(1).selected .title {
+  transform: rotate(-12deg) scale(1.1);
+}
+.choice:nth-of-type(2).selected .title {
+  transform: rotate(10deg) scale(1.1);
 }

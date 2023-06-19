@@ -43,8 +43,14 @@
 		<div id="log"></div>
 		<div class="secret" onclick="onSecret()"></div>
 		<!-- <img class="template" src="images/template.jpg" alt=""> -->
+		<div id="loading" class="lds-ring">
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
 		<div id="nav" onclick="toggleNav()">
-			<div class="button info"
+			<div class="button disabled info"
 				onclick="event.stopPropagation();if(!this.classList.contains('disabled')){onInfos()}">
 				<svg id="btn-info" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 77.15 77.15">
 					<defs>
@@ -58,7 +64,7 @@
 						d="m38.58,0C17.27,0,0,17.27,0,38.58s17.27,38.58,38.58,38.58,38.58-17.27,38.58-38.58S59.88,0,38.58,0Zm-13.6,57.12c-2.73,0-4.95-2.21-4.95-4.95s2.21-4.95,4.95-4.95,4.95,2.21,4.95,4.95-2.21,4.95-4.95,4.95Zm0-13.6c-2.73,0-4.95-2.21-4.95-4.95s2.21-4.95,4.95-4.95,4.95,2.21,4.95,4.95-2.21,4.95-4.95,4.95Zm0-13.6c-2.73,0-4.95-2.21-4.95-4.95s2.21-4.95,4.95-4.95,4.95,2.21,4.95,4.95-2.21,4.95-4.95,4.95Zm13.6,27.2c-2.73,0-4.95-2.21-4.95-4.95s2.21-4.95,4.95-4.95,4.95,2.21,4.95,4.95-2.21,4.95-4.95,4.95Zm0-13.6c-2.73,0-4.95-2.21-4.95-4.95s2.21-4.95,4.95-4.95,4.95,2.21,4.95,4.95-2.21,4.95-4.95,4.95Zm0-13.6c-2.73,0-4.95-2.21-4.95-4.95s2.21-4.95,4.95-4.95,4.95,2.21,4.95,4.95-2.21,4.95-4.95,4.95Zm13.6,27.2c-2.73,0-4.95-2.21-4.95-4.95s2.21-4.95,4.95-4.95,4.95,2.21,4.95,4.95-2.21,4.95-4.95,4.95Zm0-13.6c-2.73,0-4.95-2.21-4.95-4.95s2.21-4.95,4.95-4.95,4.95,2.21,4.95,4.95-2.21,4.95-4.95,4.95Zm0-13.6c-2.73,0-4.95-2.21-4.95-4.95s2.21-4.95,4.95-4.95,4.95,2.21,4.95,4.95-2.21,4.95-4.95,4.95Z" />
 				</svg>
 			</div>
-			<div class="button back"
+			<div class="button disabled back"
 				onclick="event.stopPropagation();if(!this.classList.contains('disabled')){onBack()}">
 				<svg id="btn-back" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 77.15 77.15">
 					<defs>
@@ -246,7 +252,7 @@
 			selectedBorne = window.localStorage.getItem('borne');
 			borneIndex = (selectedBorne) ? selectedBorne : 1
 
-			log.innerText = (parseInt(borneIndex))
+			// log.innerText = (parseInt(borneIndex))
 
 			//Get data for this borne	
 			borne = bornes.find(b => b.id == borneIndex)

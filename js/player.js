@@ -7,7 +7,8 @@ window.addEventListener('load', function () {
       let cue = e2.currentTarget.activeCues[0];
       var c = document.querySelector('.caption');
       c.innerText = showCaptions && cue ? cue.text : '';
-      c.style.display = c.innerText == '' ? 'none' : 'block';
+      //   console.log(c.innerText);
+      c.style.display = c.innerText.length < 2 ? 'none' : 'block';
     });
     tracks.mode = 'showing';
   };
@@ -35,6 +36,8 @@ function fadeOutVideo(video, hasSound) {
 
 async function playVideo(videoName) {
   if (!videoIsFading) {
+    document.querySelector('#loading').style.display = 'block';
+
     show(document.querySelector('#player'));
     //Fadeout back loop
     await fadeOutVideo(document.getElementById('loop-video'), false);
@@ -59,10 +62,15 @@ async function playVideo(videoName) {
     p.src = 'videos/' + videoName + '.mp4';
     p.volume = 1;
 
-    p.oncanplay = (event) => {
+    p.oncanplaythrough = (event) => {
       p.classList.remove('disabled');
       p.classList.add('visible');
-      document.querySelector('.caption').style.display = 'block';
+
+      document.querySelector('.caption').style.display = showCaptions
+        ? 'none'
+        : 'none';
+
+      document.querySelector('#loading').style.display = 'none';
       p.play();
     };
   }

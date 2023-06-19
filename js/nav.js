@@ -1,5 +1,7 @@
 let secretTimer;
 let secretCount = 0;
+let navTimeout;
+let navTimeoutDuration = 4000;
 
 function onSecret() {
   secretCount++;
@@ -16,11 +18,15 @@ function onSecret() {
   }
 }
 function toggleNav() {
+  clearTimeout(navTimeout);
   var n = document.querySelector('#nav');
   if (n.classList.contains('opened')) {
     n.classList.remove('opened');
   } else {
     n.classList.add('opened');
+    navTimeout = setTimeout(() => {
+      toggleNav();
+    }, navTimeoutDuration);
   }
 }
 async function onInfos() {

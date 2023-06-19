@@ -23,7 +23,6 @@ function show(item) {
   });
   document.querySelector('#nav .info').classList.remove('disabled');
   document.querySelector('#nav .back').classList.add('disabled');
-  //   console.log(item.);
   switch (item.id) {
     case 'player':
       document.querySelector('#nav .back').classList.remove('disabled');
@@ -36,9 +35,15 @@ function show(item) {
   }
 }
 function UrlExists(url) {
-  var http = new XMLHttpRequest();
-  http.open('HEAD', url, false);
-  http.send();
+  try {
+    var http = new XMLHttpRequest();
+    http.open('HEAD', url, false);
+    http.send();
+  } catch (error) {
+    console.log('Cant access VTT');
+    return false;
+  }
+
   return http.status != 404;
 }
 const clamp = (num, min, max) => {

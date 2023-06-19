@@ -1,7 +1,7 @@
 lftp -f "
 open ftp.cluster051.hosting.ovh.net
 user benoitx jmGqn2dRDuS6
-mirror -Re --verbose --use-cache $ExcludeParams --parallel=10 --use-cache msp-wall-app/ /www/dev/msp-wall
+mirror -Re --verbose --use-cache $ExcludeParams  --exclude '^\..*$' --parallel=10 --use-cache ./ /www/dev/msp-wall
 bye
 "
 
