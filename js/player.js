@@ -35,6 +35,7 @@ function fadeOutVideo(video, hasSound) {
 }
 
 async function playVideo(videoName) {
+  clearIdleTimeout();
   if (!videoIsFading) {
     document.querySelector('#loading').style.display = 'block';
 
@@ -43,7 +44,7 @@ async function playVideo(videoName) {
     await fadeOutVideo(document.getElementById('loop-video'), false);
 
     // document.getElementById('loop-video').src = '';
-    currentVideo = videoName;
+    // currentVideo = videoName;
 
     var p = document.getElementById('video');
     //Clear the fadeOut if still occuring

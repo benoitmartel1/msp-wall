@@ -4,6 +4,7 @@ let navTimeout;
 let navTimeoutDuration = 4000;
 
 function onSecret() {
+  clearIdleTimeout();
   secretCount++;
   if (secretCount > 2) {
     window.localStorage.clear();
@@ -40,10 +41,17 @@ async function onInfos() {
 
   intializeInfos();
   show(document.querySelector('#infos'));
+  setIdleTimeout();
 }
 
 async function onBack() {
+  clearIdleTimeout();
   currentVideo = null;
+
+  document.querySelectorAll('.choice').forEach((item) => {
+    item.classList.remove('selected');
+    item.classList.remove('disabled');
+  });
 
   //If leaving player, stop movie, start loop
   if (document.querySelector('#player').classList.contains('visible')) {

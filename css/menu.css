@@ -34,10 +34,16 @@
   position: absolute;
   z-index: 110;
   display: inline-flex;
+  transform-origin: left top;
   top: 45%;
-  transition: transform 300ms ease-out;
+  opacity: 1;
+  transition: all 600ms ease-out;
+  /* transition-delay: 800ms; */
 }
-
+.title.disabled {
+  opacity: 0;
+  transition-delay: 0;
+}
 .choice:nth-of-type(1) .title {
   left: 12%;
   top: 37%;
@@ -46,12 +52,16 @@
 
 .choice:nth-of-type(2) .title {
   right: 12%;
-  top: 53%;
+  top: 63%;
   transform: rotate(10deg);
+  transform-origin: right top;
 }
 .choice:nth-of-type(1).selected .title {
   transform: rotate(-12deg) scale(1.1);
 }
 .choice:nth-of-type(2).selected .title {
   transform: rotate(10deg) scale(1.1);
+}
+.choice.disabled .title {
+  opacity: 0;
 }

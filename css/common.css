@@ -131,11 +131,11 @@ video.disabled {
   width: 100%;
 }
 #back.blurred video {
-  filter: blur(30px);
-  -webkit-filter: blur(30px);
+  filter: blur(30px) brightness(0.5);
+  /* -webkit-filter: blur(30px);
   -moz-filter: blur(30px);
   -ms-filter: blur(30px);
-  -o-filter: blur(30px);
+  -o-filter: blur(30px); */
   transform: scale(1.02);
 }
 .front {

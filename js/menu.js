@@ -1,4 +1,23 @@
+var titleInterval;
+
 async function initMenuItems(borne) {
+  titleInterval = setInterval(() => {
+    // console.log(currentVideo);
+    if (currentVideo == null) {
+      document.querySelectorAll('.choice').forEach((item, index) => {
+        let isVisible = item
+          .querySelector('.title.fr')
+          .classList.contains('disabled');
+        item
+          .querySelector('.title.' + (isVisible ? 'fr' : 'en'))
+          .classList.remove('disabled');
+        item
+          .querySelector('.title.' + (!isVisible ? 'fr' : 'en'))
+          .classList.add('disabled');
+      });
+    }
+  }, 3000);
+
   //Define the click zones
   document.querySelectorAll('.clickZone').forEach((item, index) => {
     let id = borne.choices[index].id;
@@ -10,8 +29,14 @@ async function initMenuItems(borne) {
 
     //On click listener
     item.addEventListener('click', function (e) {
+      currentVideo = borne.choices[index].path;
       document.querySelectorAll('.choice')[index].classList.add('selected');
-      playVideo(borne.choices[index].path);
+      document
+        .querySelectorAll('.choice')
+        [Math.abs(index - 1)].classList.add('disabled');
+      setTimeout(() => {
+        playVideo(borne.choices[index].path);
+      }, 1000);
     });
   });
 
@@ -19,7 +44,8 @@ async function initMenuItems(borne) {
 
   //Set the text for each button
   document.querySelectorAll('.choice').forEach((item, index) => {
-    item.querySelector('.title').innerText = borne.choices[index].fr;
+    item.querySelector('.title.fr').innerText = borne.choices[index].fr;
+    item.querySelector('.title.en').innerText = borne.choices[index].en;
   });
 }
 async function setLoopSrc() {

@@ -1,3 +1,16 @@
+let idleTimeout;
+
+function setIdleTimeout() {
+  idleTimeout = setTimeout(() => {
+    console.log('back from timeout');
+    onBack();
+  }, 6000);
+}
+
+function clearIdleTimeout() {
+  clearTimeout(idleTimeout);
+}
+
 window.addEventListener('load', function () {
   document.querySelector('.arrow.left').addEventListener('click', function () {
     moveToSelected('prev');
@@ -98,10 +111,16 @@ function selectVideo(elem, name) {
 }
 
 function moveToSelected(element) {
-  console.log(document.querySelector('#carousel .selected'));
-  console.log(document.querySelector('.selected').nextElementSibling);
+  clearIdleTimeout();
+  setIdleTimeout();
+  //   console.log(document.querySelector('#carousel .selected'));
+  //   console.log(document.querySelector('.selected').nextElementSibling);
 
   if (document.querySelector('#carousel .selected')) {
+    var next;
+    var prev;
+    var prevSecond;
+    var nextSecond;
     if (element == 'next') {
       var selected = document.querySelector(
         '#carousel .selected'
@@ -113,13 +132,12 @@ function moveToSelected(element) {
     } else {
       var selected = element;
     }
-    var next = selected.nextElementSibling;
-    var prev = selected.previousElementSibling;
-    var prevSecond;
-    var nextSecond;
-
-    selected.classList.remove(...selected.classList);
-    selected.classList.add('selected');
+    if (selected) {
+      next = selected.nextElementSibling;
+      prev = selected.previousElementSibling;
+      selected.classList.remove(...selected.classList);
+      selected.classList.add('selected');
+    }
 
     if (prev) {
       prev.classList.remove(...prev.classList);
@@ -199,8 +217,13 @@ function displayQr(url) {
   document.querySelector('.qr').append(text);
 }
 function getQr(video) {
+  var qrAddress =
+    'https://raw.githubusercontent.com/benoitmartel1/msp-wall/main/qr.json?date=' +
+    new Date();
+  //   var qrAddress =
+  //     'https://dev.benoitmartel.com/msp-wall/qr.json?date=' + new Date();
   axios
-    .get('https://dev.benoitmartel.com/msp-wall/qr.json?date=' + new Date())
+    .get(qrAddress)
     .then((res) => {
       let videoName = video !== null ? video : 'default';
       let qr = res.data.qrCodes.find((q) => q.video == videoName);
