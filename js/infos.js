@@ -4,7 +4,7 @@ function setIdleTimeout() {
   idleTimeout = setTimeout(() => {
     console.log('back from timeout');
     onBack();
-  }, 6000);
+  }, 20000);
 }
 
 function clearIdleTimeout() {
