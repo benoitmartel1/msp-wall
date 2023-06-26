@@ -5,8 +5,8 @@ var data = {
       clipPath:
         '0px 0px, 2160px 0px, 2160px 1030px, 1500px 1500px, 1100px 2200px, 0px 2700px',
       choices: [
-        { fr: 'Delta', en: 'Delta EN', path: 'delta', id: 1 },
-        { fr: 'Para', en: 'Para EN', path: 'para', id: 2 },
+        { fr: 'Delta', en: 'Gorille', path: 'delta', id: 1 },
+        { fr: 'Para', en: 'Escargot', path: 'para', id: 2 },
       ],
     },
     {

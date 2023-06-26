@@ -7,11 +7,11 @@
 	<title>msp-wall</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<!-- <meta http-equiv="cache-control" content="max-age=0">
+	<meta http-equiv="cache-control" content="max-age=0">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="-1">
 	<meta http-equiv="expires" content="Tue, 01 Jan 1980 11:00:00 GMT">
-	<meta http-equiv="pragma" content="no-cache"> -->
+	<meta http-equiv="pragma" content="no-cache">
 
 	<link rel="stylesheet" href="css/fonts.css?dat=3">
 	<link rel="stylesheet" href="css/common.css?dat=6">
@@ -19,9 +19,9 @@
 	<link rel="stylesheet" href="css/nav.css?dat=3">
 	<link rel="stylesheet" href="css/infos.css?dat=3">
 	<link rel="stylesheet" href="css/player.css?dat=4">
-	<script src="js/common.js?dat=3"></script>
-	<script src="js/axios.js?dat=3"></script>
-	<script src="js/menu.js?dat=5"></script>
+	<script src="js/common.js?dat=5"></script>
+	<script src="js/axios.js"></script>
+	<script src="js/menu.js?dat=11"></script>
 	<script src="js/player.js?dat=9"></script>
 	<script src="js/nav.js?dat=4"></script>
 	<script src="js/data.js?dat=3"></script>
@@ -32,9 +32,10 @@
 	#log {
 		/* display: none; */
 		position: absolute;
-		right: 0;
+		left: 0;
 		z-index: 200;
 		color: white;
+		background-color: darkblue;
 	}
 </style>
 
@@ -106,12 +107,12 @@
 			<div class="choices">
 				<div class="choice">
 					<div class="title fr"></div>
-					<div class="title en disabled"></div>
+					<div class="title en disabled">Choix 1</div>
 				</div>
 
 				<div class="choice">
 					<div class="title fr"></div>
-					<div class="title en disabled"></div>
+					<div class="title en disabled">Choix 2</div>
 				</div>
 			</div>
 		</div>
@@ -226,7 +227,9 @@
 		</div>
 		<div id="back">
 			<div class="loop">
-				<video id="loop-video" class="disabled" autoplay muted loop></video>
+				<video id="loop-video" class="disabled" autoplay muted loop playsinline>
+					<source type=video/mp4>
+				</video>
 			</div>
 		</div>
 	</div>
@@ -242,10 +245,11 @@
 		var showCaptions = true;
 		var fadeOutInterval;
 		var scalingRatio = 1	// var borne;
-
+		var log;
 		window.addEventListener("load", function () {
-			fillScreen()
-			var log = document.getElementById("log")
+			log = document.getElementById("log")
+			fillScreen();
+
 			var player = document.getElementById("video")
 
 			//Get data for all bornes
@@ -261,11 +265,40 @@
 
 			show(document.querySelector('#menu'))
 
-
 			initMenuItems(borne);
 			initVideoListeners(player);
 
-		})
+		});
+
+		var touchstartX, touchstartY, touchendX, touchendY
+		var touchableElement = document.getElementById('app');
+		touchableElement.addEventListener('touchstart', function (event) {
+			touchstartX = event.changedTouches[0].screenX;
+			touchstartY = event.changedTouches[0].screenY;
+		}, false);
+
+		touchableElement.addEventListener('touchend', function (event) {
+			touchendX = event.changedTouches[0].screenX;
+			touchendY = event.changedTouches[0].screenY;
+			handleGesture();
+		}, false);
+
+		function displayLog(msg) {
+			log.innerText = msg
+			setTimeout(() => {
+				log.innerText = ''
+			}, 1000);
+		}
+		function handleGesture() {
+			if (touchendX < touchstartX) {
+				displayLog('Swiped Left')
+			}
+
+			if (touchendX > touchstartX) {
+				displayLog('Swiped Right')
+			}
+
+		}
 	</script>
 </body>
 

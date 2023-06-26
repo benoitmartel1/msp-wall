@@ -39,14 +39,14 @@ async function initMenuItems(borne) {
       }, 1000);
     });
   });
-
-  await setLoopSrc();
-
   //Set the text for each button
   document.querySelectorAll('.choice').forEach((item, index) => {
     item.querySelector('.title.fr').innerText = borne.choices[index].fr;
     item.querySelector('.title.en').innerText = borne.choices[index].en;
+    // item.querySelector('.title.fr').innerText = 'patin';
+    // item.querySelector('.title.en').innerText = 'matin';
   });
+  await setLoopSrc();
 }
 async function setLoopSrc() {
   //Set the video loop in background
@@ -54,6 +54,7 @@ async function setLoopSrc() {
   return new Promise((resolve) => {
     var l = document.getElementById('loop-video');
     l.src = 'videos/loop/' + borne.id + '.mp4';
+    // log.innerText = l.src;
     l.oncanplay = (event) => {
       l.classList.remove('disabled');
       resolve();

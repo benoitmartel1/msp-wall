@@ -1,11 +1,14 @@
 function fillScreen() {
-  const vh = Math.max(
-    document.documentElement.clientHeight || 0,
-    window.innerHeight || 0
-  );
+  const vh = Math.max(document.documentElement.clientHeight || 0);
+  console.log(document.documentElement.clientHeight);
   const ratio = vh / 3840;
   scalingRatio = ratio;
   var app = document.querySelector('#app');
+  if (log) {
+    // log.innerText = 'Ratio est de ' + ratio;
+    // log.innerText = ratio;
+  }
+
   app.style.transform = 'scale(' + ratio + ')';
 }
 function show(item) {
