@@ -225,12 +225,14 @@ function getQr(video) {
   axios
     .get(qrAddress)
     .then((res) => {
+      console.log(res)
       let videoName = video !== null ? video : 'default';
       let qr = res.data.qrCodes.find((q) => q.video == videoName);
 
       displayQr(qr.url);
     })
     .catch((err) => {
+      console.log(err)
       displayQr('https://montsaintpierre.ca/');
     });
 }
