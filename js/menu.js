@@ -33,12 +33,17 @@ async function initMenuItems(borne) {
       document.querySelectorAll('.choice')[index].classList.add('selected');
       document
         .querySelectorAll('.choice')
-        [Math.abs(index - 1)].classList.add('disabled');
+      [Math.abs(index - 1)].classList.add('disabled');
       setTimeout(() => {
         playVideo(borne.choices[index].path);
       }, 1000);
     });
   });
+
+  await setLoopSrc();
+  // setLoopSrcOldBrowser();
+
+
   //Set the text for each button
   document.querySelectorAll('.choice').forEach((item, index) => {
     item.querySelector('.title.fr').innerText = borne.choices[index].fr;
@@ -46,7 +51,7 @@ async function initMenuItems(borne) {
     // item.querySelector('.title.fr').innerText = 'patin';
     // item.querySelector('.title.en').innerText = 'matin';
   });
-  await setLoopSrc();
+
 }
 async function setLoopSrc() {
   //Set the video loop in background
