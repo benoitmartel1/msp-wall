@@ -28,13 +28,16 @@ function fadeOutVideo(video, hasSound) {
     setTimeout(() => {
       clearInterval(fadeOutInterval);
       videoIsFading = false;
-      video.src = '';
+      video.pause();
+      video.removeAttribute('src');
+      video.load();
       resolve();
     }, fadeDuration);
   });
 }
 
 async function playVideo(videoName) {
+  currentVideo = videoName;
   clearIdleTimeout();
   if (!videoIsFading) {
     document.querySelector('#loading').style.display = 'block';

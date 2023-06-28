@@ -2,7 +2,10 @@
   --app-width: 2160px;
   --app-height: 3840px;
 }
-
+::selection {
+  color: none;
+  background: none;
+}
 body {
   font-family: 'Agenda';
   color: white;
@@ -138,13 +141,10 @@ video.disabled {
   z-index: 0;
 }
 
-
 #back video {
   transition: all 600ms ease-out;
   width: 100%;
 }
-
-
 
 #back.blurred video {
   filter: blur(30px) brightness(0.5);

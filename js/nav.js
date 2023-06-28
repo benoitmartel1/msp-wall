@@ -34,17 +34,17 @@ async function onInfos() {
   //If leaving player, stop movie, start loop
   if (document.querySelector('#player').classList.contains('visible')) {
     await stopVideo();
-    await setLoopSrc();
   }
 
   document.querySelector('#back').classList.add('blurred');
 
   intializeInfos();
   show(document.querySelector('#infos'));
-  setIdleTimeout();
 }
 
 async function onBack() {
+  onLeaveInfos();
+
   clearIdleTimeout();
   currentVideo = null;
 

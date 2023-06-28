@@ -5,17 +5,18 @@ var data = {
       clipPath:
         '0px 0px, 2160px 0px, 2160px 1030px, 1500px 1500px, 1100px 2200px, 0px 2700px',
       choices: [
-        { fr: 'Delta', en: 'Gorille', path: 'delta', id: 1 },
-        { fr: 'Para', en: 'Escargot', path: 'para', id: 2 },
+        { fr: 'Delta', en: 'Delta', path: 'delta', id: 1 },
+        { fr: 'Para', en: 'Para', path: 'para', id: 2 },
       ],
     },
     {
       id: 2,
+      isAlt: true,
       clipPath:
-        '0px 0px, 2160px 0px, 2160px 1180px, 1200px 1650px, 900px 1700px,  0px 2800px',
+        '0px 0px, 2160px 0px, 2160px 2200px, 1400px 1600px, 900px 1500px, 0px 800px',
       choices: [
-        { fr: 'Glace', en: 'Glace EN', path: 'glace', id: 3 },
-        { fr: 'Poudreuse', en: 'Poudreuse EN', path: 'poudreuse', id: 4 },
+        { fr: 'Neige', en: 'Snow', path: 'neige', id: 3 },
+        { fr: 'Tout-terrain', en: 'Off-road', path: 'gravier', id: 4 },
       ],
     },
     {
@@ -23,15 +24,18 @@ var data = {
       clipPath:
         '0px 0px, 2160px 0px, 2160px 1030px, 1500px 1500px, 1100px 2200px, 0px 2700px',
       choices: [
-        { fr: 'Vélo', en: 'Vélo EN', path: 'velo', id: 5 },
-        { fr: 'Rando', en: 'Rando EN', path: 'rando', id: 6 },
+        { fr: 'Sous\n   zéro', en: 'Frosty', path: 'zero', id: 6 },
+        { fr: 'Sous\n le soleil', en: 'Sunny', path: 'soleil', id: 5 },
       ],
     },
     {
       id: 4,
+      isAlt: true,
+      clipPath:
+        '0px 0px, 2160px 0px, 2160px 2200px, 1400px 1600px, 900px 1500px, 0px 800px',
       choices: [
-        { fr: 'Sous le soleil', en: 'Sous EN', path: 'soleil', id: 7 },
-        { fr: 'Sous zéro', en: 'Sous zéro EN', path: 'zero', id: 8 },
+        { fr: 'Rando', en: 'Hiking', path: 'rando', id: 7 },
+        { fr: 'Vélo', en: 'Biking', path: 'velo', id: 8 },
       ],
     },
     {
@@ -39,15 +43,19 @@ var data = {
       clipPath:
         '0px 0px, 2160px 0px, 2160px 1030px, 1500px 1500px, 1100px 2200px, 0px 2700px',
       choices: [
-        { fr: 'Gravier', en: 'Gravier EN', path: 'gravier', id: 10 },
-        { fr: 'Neige', en: 'Neige EN', path: 'neige', id: 9 },
+        { fr: 'Poudreuse', en: 'Powder', path: 'poudreuse', id: 10 },
+        { fr: 'Glace', en: 'Ice', path: 'glace', id: 9 },
       ],
     },
+
     {
       id: 6,
+      isAlt: true,
+      clipPath:
+        '0px 0px, 2160px 0px, 2160px 2200px, 1400px 1600px, 900px 1500px, 0px 800px',
       choices: [
-        { fr: 'Au ciel', en: 'Au ciel EN', path: 'ciel', id: 11 },
-        { fr: 'Au sommet', en: 'Sommet EN', path: 'sommet', id: 12 },
+        { fr: 'Au sommet', en: 'At the top', path: 'sommet', id: 11 },
+        { fr: 'Au ciel', en: 'Up in the sky', path: 'ciel', id: 12 },
       ],
     },
   ],

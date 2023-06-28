@@ -1,68 +1,60 @@
 var titleInterval;
+var titleSwitchIntervalDuration = 3000;
+var titlesAreSame = [false, false];
 
-async function initMenuItems(borne) {
-  titleInterval = setInterval(() => {
-    // console.log(currentVideo);
-    if (currentVideo == null) {
-      document.querySelectorAll('.choice').forEach((item, index) => {
-        let isVisible = item
-          .querySelector('.title.fr')
-          .classList.contains('disabled');
-        item
-          .querySelector('.title.' + (isVisible ? 'fr' : 'en'))
-          .classList.remove('disabled');
-        item
-          .querySelector('.title.' + (!isVisible ? 'fr' : 'en'))
-          .classList.add('disabled');
-      });
-    }
-  }, 3000);
+async function intializeMenu(borne) {
+  //Set background video at the back
+  await setLoopSrc();
+
+  document.querySelector('.choices').classList.remove('alt');
+  if (borne.isAlt) document.querySelector('.choices').classList.add('alt');
 
   //Define the click zones
   document.querySelectorAll('.clickZone').forEach((item, index) => {
-    let id = borne.choices[index].id;
-
-    //Set the SVG clip path
+    //Set the SVG clip path on left button
     if (index == 0) {
       item.style.clipPath = 'polygon(' + borne.clipPath + ')';
     }
-
     //On click listener
     item.addEventListener('click', function (e) {
-      currentVideo = borne.choices[index].path;
+      //   currentVideo = borne.choices[index].path;
       document.querySelectorAll('.choice')[index].classList.add('selected');
       document
         .querySelectorAll('.choice')
-      [Math.abs(index - 1)].classList.add('disabled');
+        [Math.abs(index - 1)].classList.add('disabled');
       setTimeout(() => {
         playVideo(borne.choices[index].path);
       }, 1000);
     });
   });
 
-  await setLoopSrc();
-  // setLoopSrcOldBrowser();
-
-
   //Set the text for each button
   document.querySelectorAll('.choice').forEach((item, index) => {
     item.querySelector('.title.fr').innerText = borne.choices[index].fr;
     item.querySelector('.title.en').innerText = borne.choices[index].en;
-    // item.querySelector('.title.fr').innerText = 'patin';
-    // item.querySelector('.title.en').innerText = 'matin';
   });
 
-}
-async function setLoopSrc() {
-  //Set the video loop in background
-
-  return new Promise((resolve) => {
-    var l = document.getElementById('loop-video');
-    l.src = 'videos/loop/' + borne.id + '.mp4';
-    // log.innerText = l.src;
-    l.oncanplay = (event) => {
-      l.classList.remove('disabled');
-      resolve();
-    };
+  //Check if titles are same in FR and EN to avoid switch animation
+  borne.choices.forEach((item, index) => {
+    titlesAreSame[index] = item.fr == item.en;
   });
+
+  //Start the interval to switch titles between languages
+  titleInterval = setInterval(() => {
+    if (currentVideo == null) {
+      document.querySelectorAll('.choice').forEach((item, index) => {
+        if (!titlesAreSame[index]) {
+          let isVisible = item
+            .querySelector('.title.fr')
+            .classList.contains('disabled');
+          item
+            .querySelector('.title.' + (isVisible ? 'fr' : 'en'))
+            .classList.remove('disabled');
+          item
+            .querySelector('.title.' + (!isVisible ? 'fr' : 'en'))
+            .classList.add('disabled');
+        }
+      });
+    }
+  }, titleSwitchIntervalDuration);
 }

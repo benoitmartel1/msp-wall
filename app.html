@@ -25,7 +25,7 @@
 	<script src="js/player.js?dat=9"></script>
 	<script src="js/nav.js?dat=4"></script>
 	<script src="js/data.js?dat=3"></script>
-	<script src="js/infos.js?dat=6"></script>
+	<script src="js/infos.js?dat=7"></script>
 	<script src="js/qrcode.js?dat=3"></script>
 </head>
 <style>
@@ -210,7 +210,8 @@
 				</div>
 				<div class="mid">
 					<img class="information" src="images/info.png" alt="">
-					<div class="qr">
+					<div class="qr disabled">
+
 					</div>
 				</div>
 				<div class="bottom">
@@ -257,14 +258,12 @@
 			selectedBorne = window.localStorage.getItem('borne');
 			borneIndex = (selectedBorne) ? selectedBorne : 1
 
-			// log.innerText = (parseInt(borneIndex))
-
 			//Get data for this borne	
 			borne = bornes.find(b => b.id == borneIndex)
 
 			show(document.querySelector('#menu'))
 
-			initMenuItems(borne);
+			intializeMenu(borne);
 			initVideoListeners(player);
 
 		});

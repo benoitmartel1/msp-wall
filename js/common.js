@@ -52,3 +52,19 @@ function UrlExists(url) {
 const clamp = (num, min, max) => {
   return Math.min(Math.max(num, min), max);
 };
+async function setLoopSrc() {
+  //Set the video loop in background
+  return new Promise((resolve) => {
+    var l = document.getElementById('loop-video');
+    var videoPath = 'videos/loop/' + borne.id + '.mp4';
+    if (l.src == '' && UrlExists(videoPath)) {
+      l.src = videoPath;
+      l.oncanplay = (event) => {
+        l.classList.remove('disabled');
+        resolve();
+      };
+    } else {
+      resolve();
+    }
+  });
+}

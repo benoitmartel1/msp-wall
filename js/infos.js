@@ -1,10 +1,64 @@
-let idleTimeout;
+var idleTimeout;
+var idleTimeoutDuration = 20000;
+
+async function intializeInfos() {
+  var featured = document.querySelector('.featured');
+  var carousel = document.querySelector('#carousel');
+
+  //Clear containers
+  document.querySelector('.qr').innerHTML = '';
+  featured.innerHTML = '';
+  carousel.innerHTML = '';
+
+  window.addEventListener(
+    'qrReady',
+    (e) => {
+      document.querySelector('.qr').classList.remove('disabled');
+    },
+    false
+  );
+
+  getQr(currentVideo);
+  setIdleTimeout();
+  await setLoopSrc();
+
+  //Populate featured
+  borne.choices.forEach((c) => {
+    const img = document.createElement('img');
+    if (c.path == currentVideo) {
+      img.classList.add('visited');
+    }
+    img.classList.add('disabled');
+
+    img.src = 'images/videos/' + c.path + '.png';
+    featured.append(img);
+
+    img.addEventListener('load', fadeImg);
+
+    img.addEventListener('click', function (e) {
+      onLeaveInfos();
+      playVideo(c.path);
+    });
+  });
+
+  //Populate carousel
+  populateCarousel(
+    bornes
+      .flatMap((e) => e.choices)
+      .filter(
+        (v) => v.id !== borne.choices[0].id && v.id !== borne.choices[1].id
+      )
+  );
+}
+function onLeaveInfos() {
+  document.querySelector('.qr').classList.add('disabled');
+}
 
 function setIdleTimeout() {
   idleTimeout = setTimeout(() => {
     console.log('back from timeout');
     onBack();
-  }, 20000);
+  }, idleTimeoutDuration);
 }
 
 function clearIdleTimeout() {
@@ -20,43 +74,6 @@ window.addEventListener('load', function () {
   });
 });
 
-function intializeInfos() {
-  document.querySelector('.qr').style.transition = 'none';
-  document.querySelector('.qr').innerHTML = '';
-  getQr(currentVideo);
-
-  var featured = document.querySelector('.featured');
-  var carousel = document.querySelector('#carousel');
-
-  //Clear containers
-  featured.innerHTML = '';
-  carousel.innerHTML = '';
-
-  //Populate featured
-  let borne = bornes.find((b) => b.id == selectedBorne);
-  borne.choices.forEach((c) => {
-    const img = document.createElement('img');
-    if (c.path == currentVideo) {
-      img.classList.add('disabled');
-    }
-    img.addEventListener('load', fadeImg);
-    img.style.opacity = '0';
-    img.addEventListener('click', function (e) {
-      playVideo(c.path);
-    });
-    img.src = 'images/videos/' + c.path + '.png';
-    featured.append(img);
-  });
-
-  //Populate carousel
-  populateCarousel(
-    bornes
-      .flatMap((e) => e.choices)
-      .filter(
-        (v) => v.id !== borne.choices[0].id && v.id !== borne.choices[1].id
-      )
-  );
-}
 //=========Functions for Carousel
 function populateCarousel(videos) {
   var midItem = Math.floor(videos.length / 2);
@@ -88,9 +105,9 @@ function populateCarousel(videos) {
     div.classList.add(myClass);
 
     img.src = 'images/videos/' + v.path + '.png';
-    // img.src = 'images/videos/para.jpg';
+    img.classList.add('disabled');
     img.addEventListener('load', fadeImg);
-    img.style.opacity = '0';
+
     img.addEventListener('click', function (e) {
       selectVideo(e, v.path);
     });
@@ -99,11 +116,13 @@ function populateCarousel(videos) {
   });
 }
 function fadeImg() {
-  this.style.transition = 'opacity 400ms';
-  this.style.opacity = '1';
+  setTimeout(() => {
+    this.classList.remove('disabled');
+  }, 50);
 }
 function selectVideo(elem, name) {
   if (elem.target.parentNode.classList.contains('selected')) {
+    onLeaveInfos();
     playVideo(name);
   } else {
     moveToSelected(elem.target.parentNode);
@@ -194,7 +213,7 @@ const prevAll = (element) => {
 function displayQr(url) {
   var q = document.querySelector('.qr');
 
-  q.style.opacity = '0';
+  //   q.style.opacity = '0';
   const div = document.createElement('div');
   new QRCode(div, {
     text: url,
@@ -206,10 +225,10 @@ function displayQr(url) {
 
   q.append(div);
 
-  setTimeout(() => {
-    q.style.transition = 'opacity 200ms';
-    q.style.opacity = '1';
-  }, 200);
+  //   setTimeout(() => {
+  //     q.style.transition = 'opacity 200ms';
+  //     q.style.opacity = '1';
+  //   }, 200);
 
   const text = document.createElement('div');
   text.innerText = url;
@@ -225,14 +244,14 @@ function getQr(video) {
   axios
     .get(qrAddress)
     .then((res) => {
-      console.log(res)
+      console.log(res);
       let videoName = video !== null ? video : 'default';
       let qr = res.data.qrCodes.find((q) => q.video == videoName);
 
       displayQr(qr.url);
     })
     .catch((err) => {
-      console.log(err)
+      console.log(err);
       displayQr('https://montsaintpierre.ca/');
     });
 }
