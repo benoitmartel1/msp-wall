@@ -239,19 +239,32 @@ function getQr(video) {
   var qrAddress =
     'https://raw.githubusercontent.com/benoitmartel1/msp-wall/main/qr.json?date=' +
     new Date();
-  //   var qrAddress =
-  //     'https://dev.benoitmartel.com/msp-wall/qr.json?date=' + new Date();
   axios
     .get(qrAddress)
     .then((res) => {
-      console.log(res);
-      let videoName = video !== null ? video : 'default';
-      let qr = res.data.qrCodes.find((q) => q.video == videoName);
+      if (res.data.qrCodes)
+        localStorage.setItem('qr', JSON.stringify(res.data));
 
-      displayQr(qr.url);
+      displayQr(findQrUrl(res.data, video));
     })
     .catch((err) => {
-      console.log(err);
-      displayQr('https://montsaintpierre.ca/');
+      //If offline, then get last qr codes stored in localstorage
+      var localStorageJson = JSON.parse(localStorage.getItem('qr'));
+
+      if (localStorageJson?.qrCodes) {
+        displayQr(findQrUrl(localStorageJson, video));
+      } else {
+        fetch('qr.json')
+          .then((response) => response.json())
+          .then((json) => {
+            displayQr(findQrUrl(json, video));
+          })
+          .catch((err) => displayQr('https://montsaintpierre.ca/'));
+      }
     });
+}
+function findQrUrl(data, video) {
+  return data.qrCodes.find(
+    (q) => q.video == (video !== null ? video : 'default')
+  ).url;
 }
