@@ -7,14 +7,17 @@
   height: 100%;
   width: 100%;
 }
+
 #infos img {
   cursor: pointer;
 }
+
 .qr {
   transition: opacity 800ms;
   min-height: 300px;
   opacity: 1;
 }
+
 .qr.disabled {
   opacity: 0;
 }
@@ -25,21 +28,25 @@
   justify-content: center;
   /* align-items: center; */
 }
+
 .qr img {
   border: 18px solid white;
 }
+
 .qr .text {
   font-size: 0.5em;
   opacity: 0.3;
   margin: 20px 0;
 }
 
-#infos > div {
+#infos>div {
   text-align: center;
   width: 100%;
 }
+
 .top {
-  align-items: end;
+  /* align-items: end; */
+  margin-top: 400px;
   /* padding: 200px;
   padding-top: 300px; */
   /* position: absolute; */
@@ -47,12 +54,14 @@
   height: 1000px;
   /* border: 2px solid yellow; */
 }
+
 .top svg {
   /* border: 2px solid yellow; */
 
   width: 1550px;
   margin-left: 60px;
 }
+
 .mid {
   width: 100%;
   flex-grow: 1;
@@ -62,35 +71,42 @@
   align-items: center;
   justify-content: end;
 }
+
 .information {
   width: 730px;
   margin-bottom: 55px;
 }
+
 .bottom {
   /* border: 2px solid orange; */
   width: 100%;
   height: 1980px;
 }
+
 .featured {
   min-height: 495px;
   height: 495px;
 }
+
 .featured img {
   width: 330px;
   height: 495px;
   margin: 0 85px;
 }
+
 .featured img,
 #carousel img {
   transition: opacity 750ms;
   opacity: 1;
 }
+
 .featured img.disabled,
 #carousel img.disabled {
   opacity: 0;
 }
+
 .featured img.visited {
-  filter: brightness(0.9) sepia(100%) saturate(400%) hue-rotate(180deg);
+  /* filter: brightness(0.9) sepia(100%) saturate(400%) hue-rotate(180deg); */
 
   /* filter: saturate(0); */
 }
@@ -102,6 +118,7 @@
   align-items: center;
   justify-content: center;
 }
+
 .carousel-wrapper .arrow {
   cursor: pointer;
   width: 150px;
@@ -110,6 +127,7 @@
   border-bottom: 40px solid transparent;
   border-left: 70px solid white;
 }
+
 .arrow.left {
   transform: scaleX(-1);
 }
@@ -127,6 +145,7 @@
   opacity: 1;
   transform-origin: 0 center;
 }
+
 #carousel div img {
   height: 342px;
 }
@@ -148,6 +167,7 @@
   left: 50%;
   transform: translateX(-50%);
 }
+
 #carousel div.prev {
   z-index: 5;
   left: 30%;
@@ -159,12 +179,14 @@
   left: 70%;
   transform: scale(0.75) translateX(-55%);
 }
+
 #carousel div.prevLeftSecond {
   z-index: 4;
   left: 15%;
   transform: scale(0.75) translateX(-55%);
   opacity: 0.7;
 }
+
 #carousel div.nextRightSecond {
   z-index: 4;
   left: 85%;

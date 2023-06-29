@@ -18,17 +18,24 @@
 	<link rel="stylesheet" href="css/menu.css?dat=3">
 	<link rel="stylesheet" href="css/nav.css?dat=3">
 	<link rel="stylesheet" href="css/infos.css?dat=3">
-	<link rel="stylesheet" href="css/player.css?dat=4">
-	<script src="js/common.js?dat=5"></script>
-	<script src="js/axios.js"></script>
-	<script src="js/menu.js?dat=11"></script>
-	<script src="js/player.js?dat=9"></script>
-	<script src="js/nav.js?dat=4"></script>
-	<script src="js/data.js?dat=3"></script>
-	<script src="js/infos.js?dat=7"></script>
-	<script src="js/qrcode.js?dat=3"></script>
+	<link rel="stylesheet" href="css/player.css?dat=5">
+	<script src="js/common.js?dat=8"></script>
+	<script src="js/axios.js?dat=4"></script>
+	<script src="js/menu.js?dat=17"></script>
+	<script src="js/player.js?dat=13"></script>
+	<script src="js/nav.js?dat=8"></script>
+	<script src="js/data.js?dat=5"></script>
+	<script src="js/infos.js?dat=28"></script>
+	<script src="js/qrcode.js?dat=5"></script>
 </head>
 <style>
+	#app,
+	body,
+	html {
+		overflow: hidden;
+		/* border: 8px red solid; */
+	}
+
 	#log {
 		/* display: none; */
 		position: absolute;
@@ -44,7 +51,7 @@
 		<div id="log"></div>
 		<div class="secret" onclick="onSecret()"></div>
 		<!-- <img class="template" src="images/template.jpg" alt=""> -->
-		<div id="loading" class="lds-ring">
+		<div id="loading" style="visibility: hidden;" class="lds-ring">
 			<div></div>
 			<div></div>
 			<div></div>
@@ -270,22 +277,22 @@
 
 		var touchstartX, touchstartY, touchendX, touchendY
 		var touchableElement = document.getElementById('app');
-		touchableElement.addEventListener('touchstart', function (event) {
-			touchstartX = event.changedTouches[0].screenX;
-			touchstartY = event.changedTouches[0].screenY;
-		}, false);
+		// touchableElement.addEventListener('touchstart', function (event) {
+		// 	touchstartX = event.changedTouches[0].screenX;
+		// 	touchstartY = event.changedTouches[0].screenY;
+		// }, false);
 
-		touchableElement.addEventListener('touchend', function (event) {
-			touchendX = event.changedTouches[0].screenX;
-			touchendY = event.changedTouches[0].screenY;
-			handleGesture();
-		}, false);
+		// touchableElement.addEventListener('touchend', function (event) {
+		// 	touchendX = event.changedTouches[0].screenX;
+		// 	touchendY = event.changedTouches[0].screenY;
+		// 	handleGesture();
+		// }, false);
 
 		function displayLog(msg) {
 			log.innerText = msg
 			setTimeout(() => {
 				log.innerText = ''
-			}, 1000);
+			}, 2000);
 		}
 		function handleGesture() {
 			if (touchendX < touchstartX) {

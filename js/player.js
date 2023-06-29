@@ -1,4 +1,5 @@
 window.addEventListener('load', function () {
+  // displayLog('999')
   var p = document.getElementById('video');
   p.onloadstart = function () {
     var tracks = p.textTracks[0];

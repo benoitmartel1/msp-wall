@@ -31,13 +31,14 @@ function toggleNav() {
   }
 }
 async function onInfos() {
+
   //If leaving player, stop movie, start loop
   if (document.querySelector('#player').classList.contains('visible')) {
     await stopVideo();
   }
 
   document.querySelector('#back').classList.add('blurred');
-
+  // log.innerText = 'ta'
   intializeInfos();
   show(document.querySelector('#infos'));
 }

@@ -16,12 +16,12 @@ async function intializeMenu(borne) {
       item.style.clipPath = 'polygon(' + borne.clipPath + ')';
     }
     //On click listener
-    item.addEventListener('click', function (e) {
+    item.addEventListener('touchstart', function (e) {
       //   currentVideo = borne.choices[index].path;
       document.querySelectorAll('.choice')[index].classList.add('selected');
       document
         .querySelectorAll('.choice')
-        [Math.abs(index - 1)].classList.add('disabled');
+      [Math.abs(index - 1)].classList.add('disabled');
       setTimeout(() => {
         playVideo(borne.choices[index].path);
       }, 1000);
