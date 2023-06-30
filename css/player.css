@@ -33,3 +33,18 @@
   display: none;
   opacity: 0;
 }
+#headset {
+  transition: all 400ms;
+  opacity: 0;
+  display: flex;
+  position: absolute;
+  z-index: 80;
+  width: 100%;
+  padding: 80px;
+  justify-content: space-between;
+  top: 47.5%;
+}
+#headset svg {
+  fill: white;
+  width: 300px;
+}

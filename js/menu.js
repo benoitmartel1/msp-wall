@@ -15,13 +15,18 @@ async function intializeMenu(borne) {
     if (index == 0) {
       item.style.clipPath = 'polygon(' + borne.clipPath + ')';
     }
+    var mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(
+      navigator.userAgent
+    );
+    console.log(mobile);
+    var touchEvent = mobile ? 'touchstart' : 'mousedown';
     //On click listener
-    item.addEventListener('touchstart', function (e) {
+    item.addEventListener(touchEvent, function (e) {
       //   currentVideo = borne.choices[index].path;
       document.querySelectorAll('.choice')[index].classList.add('selected');
       document
         .querySelectorAll('.choice')
-      [Math.abs(index - 1)].classList.add('disabled');
+        [Math.abs(index - 1)].classList.add('disabled');
       setTimeout(() => {
         playVideo(borne.choices[index].path);
       }, 1000);

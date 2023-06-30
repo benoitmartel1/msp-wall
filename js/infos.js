@@ -1,12 +1,18 @@
 var idleTimeout;
 var idleTimeoutDuration = 30000;
 
-
-
 async function intializeInfos() {
-
   var featured = document.querySelector('.featured');
   var carousel = document.querySelector('#carousel');
+
+  //Set QR code Name above
+  var currentVideoName;
+  bornes.forEach((b) => {
+    let tempName = b.choices.find((c) => c.path == currentVideo)?.fr;
+    if (tempName) currentVideoName = tempName;
+  });
+  document.querySelector('.borne-name').innerText =
+    currentVideoName?.replace('\n', '') || '';
 
   //Clear containers
   document.querySelector('.qr').innerHTML = '';
@@ -55,6 +61,7 @@ async function intializeInfos() {
 }
 function onLeaveInfos() {
   document.querySelector('.qr').classList.add('disabled');
+  clearIdleTimeout();
 }
 
 function setIdleTimeout() {
@@ -133,11 +140,8 @@ function selectVideo(elem, name) {
 }
 
 function moveToSelected(element) {
-
   clearIdleTimeout();
   setIdleTimeout();
-  console.log(document.querySelector('#carousel .selected'));
-  console.log(document.querySelector('.selected').nextElementSibling);
 
   if (document.querySelector('#carousel .selected')) {
     var next;
@@ -257,12 +261,11 @@ function getQr(video) {
       var localStorageJson = JSON.parse(localStorage.getItem('qr'));
 
       if (localStorageJson) {
-        displayLog('local')
+        displayLog('local');
         if (localStorageJson.qrCodes) {
-          displayLog(localStorageJson.qrCodes)
+          displayLog(localStorageJson.qrCodes);
           displayQr(findQrUrl(localStorageJson, video));
         }
-
       } else {
         // displayLog('pas de local')
         fetch('qr.json')
@@ -272,7 +275,6 @@ function getQr(video) {
           })
           .catch((err) => displayQr('https://montsaintpierre.ca/'));
       }
-
     });
 }
 function findQrUrl(data, video) {

@@ -4,7 +4,7 @@
 } */
 
 #nav {
-  transition: width 400ms ease-out;
+  transition: all 400ms ease-out;
   cursor: pointer;
   width: 80px;
   color: white;

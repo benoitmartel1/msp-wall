@@ -1,3 +1,5 @@
+var headsetDelay = 2000;
+
 window.addEventListener('load', function () {
   // displayLog('999')
   var p = document.getElementById('video');
@@ -39,13 +41,20 @@ function fadeOutVideo(video, hasSound) {
 
 async function playVideo(videoName) {
   currentVideo = videoName;
-  clearIdleTimeout();
-  if (!videoIsFading) {
-    document.querySelector('#loading').style.display = 'block';
 
+  if (!videoIsFading) {
+    //Show Ecouteurs
+    // document.querySelector('#loading').style.display = 'block';
+    //Hide current Show player
     show(document.querySelector('#player'));
+    //Hide Nav
+    document.querySelector('#nav').style.left = '-100px';
+    //Show headset
+    document.querySelector('#headset').style.opacity = 1;
     //Fadeout back loop
     await fadeOutVideo(document.getElementById('loop-video'), false);
+    //Wait x seconds
+    await delay(headsetDelay);
 
     // document.getElementById('loop-video').src = '';
     // currentVideo = videoName;
@@ -75,7 +84,11 @@ async function playVideo(videoName) {
         ? 'none'
         : 'none';
 
-      document.querySelector('#loading').style.display = 'none';
+      //Hide headset
+      document.querySelector('#headset').style.opacity = 0;
+      //   document.querySelector('#loading').style.display = 'none';
+      //Show Nav
+      document.querySelector('#nav').style.left = 0;
       p.play();
     };
   }

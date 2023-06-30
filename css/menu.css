@@ -18,13 +18,24 @@
   position: absolute;
   height: 100%;
 }
-
-.choice img {
-  transition: filter 400ms ease;
-  width: 100%;
+@keyframes hello {
+  0%,
+  80%,
+  100% {
+    margin-top: 0;
+  }
+  85% {
+    margin-top: 20px;
+  }
+  90% {
+    margin-top: -20px;
+  }
+  95% {
+    margin-top: 15px;
+  }
 }
-
 .title {
+  animation: hello 4s infinite;
   white-space: pre-wrap;
   line-height: 1em;
   /* filter: blur(10px); */
@@ -47,32 +58,42 @@
   transition-delay: 0;
 }
 .choice:nth-of-type(1) .title {
-  left: 12%;
-  top: 37%;
+  left: 10%;
+  top: 40%;
   transform: rotate(-8deg);
 }
 .alt .choice:nth-of-type(1) .title {
-  top: 47%;
-  /* transform: rotate(-8deg); */
+  right: 10%;
+  left: unset;
+  top: 37%;
+  transform: rotate(8deg);
+  transform-origin: right top;
 }
 
 .choice:nth-of-type(2) .title {
-  right: 12%;
-  top: 63%;
+  animation-delay: 300ms;
+  right: 10%;
+  top: 67%;
   transform: rotate(10deg);
   transform-origin: right top;
 }
 .alt .choice:nth-of-type(2) .title {
-  top: 37%;
-  /* transform: rotate(-8deg); */
+  top: 68%;
+  right: unset;
+  left: 10%;
+  transform: rotate(-8deg);
+  transform-origin: left top;
 }
 
-.choice:nth-of-type(1).selected .title {
+.choice:nth-of-type(1).selected .title,
+.alt .choice:nth-of-type(2).selected .title {
   transform: rotate(-8deg) scale(1.1);
 }
-.choice:nth-of-type(2).selected .title {
+.choice:nth-of-type(2).selected .title,
+.alt .choice:nth-of-type(1).selected .title {
   transform: rotate(10deg) scale(1.1);
 }
+
 .choice.disabled .title {
   opacity: 0;
 }

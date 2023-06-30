@@ -1,6 +1,4 @@
-
-
-
+const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
 function fillScreen() {
   const vh = Math.max(document.documentElement.clientHeight || 0);

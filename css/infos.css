@@ -39,7 +39,7 @@
   margin: 20px 0;
 }
 
-#infos>div {
+#infos > div {
   text-align: center;
   width: 100%;
 }
@@ -76,7 +76,9 @@
   width: 730px;
   margin-bottom: 55px;
 }
-
+.borne-name {
+  margin-bottom: 50px;
+}
 .bottom {
   /* border: 2px solid orange; */
   width: 100%;
