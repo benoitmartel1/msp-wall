@@ -30,8 +30,8 @@ function toggleNav() {
     }, navTimeoutDuration);
   }
 }
-async function onInfos() {
 
+async function onInfos() {
   //If leaving player, stop movie, start loop
   if (document.querySelector('#player').classList.contains('visible')) {
     await stopVideo();
