@@ -6,6 +6,11 @@
   color: none;
   background: none;
 }
+#app,
+body,
+html {
+  overflow: hidden;
+}
 body {
   font-family: 'Agenda';
   color: white;
@@ -166,4 +171,12 @@ video.disabled {
   z-index: 500;
   opacity: 0.5;
   pointer-events: none;
+}
+#log {
+  /* display: none; */
+  position: absolute;
+  left: 0;
+  z-index: 200;
+  color: white;
+  background-color: darkblue;
 }

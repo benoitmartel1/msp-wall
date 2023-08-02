@@ -10,6 +10,7 @@
   align-items: flex-start;
   justify-content: center;
   margin: auto;
+  pointer-events: none;
 }
 
 .caption {
@@ -24,9 +25,6 @@
   background-color: rgba(0, 0, 0, 0.6);
   opacity: 0.9;
   padding: 20px 40px;
-  /* position: absolute; */
-  /* z-index: 80;
-	bottom: 0; */
 }
 
 #video::cue {
@@ -43,6 +41,7 @@
   padding: 80px;
   justify-content: space-between;
   top: 47.5%;
+  pointer-events: none;
 }
 #headset svg {
   fill: white;

@@ -47,7 +47,9 @@
   width: 45px;
   opacity: 1;
 }
-
+#nav svg {
+  pointer-events: none;
+}
 #nav .info,
 #nav .back {
   opacity: 1;
@@ -70,7 +72,7 @@
   opacity: 0;
 }
 
-.secret {
+#secret {
   position: absolute;
   z-index: 800;
   right: 0;

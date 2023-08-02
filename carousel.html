@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8" />
+	<title>Carousel</title>
+	<script src="js/data.js?dat=5"></script>
+</head>
+<style>
+	* {
+		box-sizing: border-box;
+		user-select: none
+	}
+
+	body {
+		font-family: sans-serif;
+	}
+
+	.wrapper {
+		border: 2px solid blue;
+		width: 940px;
+		height: 300px;
+		/* pointer-events: none; */
+	}
+
+	.scene {
+		border: 1px solid #CCC;
+		/* margin: 40px 0; */
+		position: relative;
+		width: 210px;
+		height: 140px;
+		margin: 60px auto;
+		perspective: 1000px;
+		/* background-color: red; */
+	}
+
+	.carousel {
+		margin-left: 45px;
+		width: 200px;
+		height: 100px;
+		position: absolute;
+		transform: translateY(20px) translateZ(-200px);
+		transform-style: preserve-3d;
+		transform-origin: 50px 0px 0px;
+
+		/* transition: transform 1s; */
+
+	}
+
+	.click-zone {
+		width: 940px;
+		height: 300px;
+		background-color: greenyellow;
+		opacity: 0;
+		position: absolute;
+		z-index: 10;
+
+	}
+
+	.carousel__cell {
+		transform-origin: 60px 0;
+		/* backface-visibility: hidden; */
+		/* border: 2px solid black; */
+		transform-style: preserve-3d;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		position: absolute;
+		width: 120px;
+		height: 100px;
+		/* left: 10px;
+		top: 10px; */
+		/* border: 2px solid black;
+		line-height: 116px; */
+		/* font-size: 80px;
+		font-weight: bold;
+		color: white;
+		text-align: center; */
+		/* background-color: green; */
+	}
+
+	.carousel__cell img {
+		/* backface-visibility: hidden; */
+
+		/* transform: rotateY(30deg); */
+		/* position: absolute; */
+		height: 100%;
+	}
+</style>
+<script>
+	var angle = 0;
+	var cellCount = 12;
+	var range;
+	var selectedIndex = 0;
+	var selectedThreshold = 8
+	var transitionThreshold = 30
+	var visibleThreshold = 80
+	var transitionRange = transitionThreshold - selectedThreshold
+	var waitingRange = visibleThreshold - transitionThreshold
+
+	window.addEventListener('load', e => {
+		var borne = data.bornes[1]
+		var filteredBornes = data.bornes
+			.flatMap((e) => e.choices)
+			.filter(
+				(v) => v.id !== borne.choices[0].id && v.id !== borne.choices[1].id
+			)
+
+		cellCount = filteredBornes.length;
+
+		var carousel = document.querySelector('.carousel');
+
+		document.querySelector('body').addEventListener('mousemove', e => {
+			if (e.buttons == 1)
+				rotateCarousel(e.movementX / e.currentTarget.offsetWidth)
+		});
+		document.querySelector('body').addEventListener('mouseup', e => {
+			range = 360 / cellCount
+			var d = angle % range
+
+			var correction = 0
+			if (angle > 0) {
+				correction = d < (range / 2) ? -d : range - d;
+			} else {
+				correction = Math.abs(d) < range / 2 ? -d : -range - d;
+			}
+
+			console.log('correction = ' + correction)
+
+			var snapInterval = setInterval(() => {
+				// var inc = (3 / 50) * (correction < 0 ? -1 : 1)
+				var inc = (Math.abs(correction / range)) * (correction < 0 ? -1 : 1)
+				// console.log(inc)
+				// angle += inc
+				rotateCarousel(inc / 360)
+				correction -= inc
+				// console.log(angle)
+				if (Math.abs(correction) < .04) {
+					console.log(angle)
+					clearInterval(snapInterval)
+				}
+			}, 7);
+			// console.log('To do : Move to closest')
+		});
+
+		function initCarousel() {
+			var cell = 0;
+			while (cell < cellCount) {
+
+				let div = document.createElement('div');
+				div.classList.add('carousel__cell');
+				div.style.transform = 'rotateY(' + 360 / cellCount * cell + 'deg) translateZ(210px)';
+				// div.innerText = cell;
+				let img = document.createElement('img');
+				// img.style.transform = 'rotateY(' + 360 / cellCount * cell + 'deg)';
+				img.src = 'images/videos/' + filteredBornes[cell].path + '.png'
+				div.appendChild(img);
+				carousel.appendChild(div);
+				cell++;
+			}
+		}
+
+		function rotateCarousel(offset) {
+			angle += offset * 360
+			carousel.style.transform = 'rotateY(' + angle + 'deg) translateY(20px)';
+
+			for (var child in carousel.children) {
+				var index = parseInt(child);
+
+				if (!isNaN(index)) {
+
+					var img = document.querySelector('.carousel div:nth-child(' + (index + 1) + ') img')
+
+					var counterAngle = (360 - index * range) - angle;
+
+					if (img) {
+						var correctedAngle = (angle + index * range) % 360;
+						var remappedAngle = remap(correctedAngle)
+
+						// if (index == 0) console.log(remappedAngle)
+						var scale = setScale(Math.abs(remappedAngle))
+						var posX = setPosX(remappedAngle)
+						// console.log(index + '  REMAP : ' + remappedAngle + ' POSX : ' + posX)
+						img.style.transform = 'rotateY(' + counterAngle + 'deg) scale(' + scale + ') translateX(' + posX + 'px)'
+						img.style.opacity = setOpacity(Math.abs(remappedAngle));
+						img.style.display = isVisible(Math.abs(remappedAngle)) ? 'inherit' : 'none'
+					}
+				}
+				function remap(a) {
+					if (a > 180) {
+						return a - 360
+					} else if (a < -180) {
+						return a + 360
+					} else {
+						return a
+					}
+				}
+				function isVisible(a) {
+					return a > 0 && a < 80
+				}
+				function setScale(a) {
+					if ((a >= 0 && a <= selectedThreshold)) {
+						return 1
+					} else if ((a > selectedThreshold && a <= transitionThreshold)) {
+						return 1 - (a - selectedThreshold) / transitionRange * .1;
+					} else if (a < visibleThreshold) {
+						return .9 + (a - transitionThreshold) / waitingRange * .15;
+					} else {
+						return 1.05
+					}
+				}
+				function setPosX(angle) {
+					var a = Math.abs(angle);
+					var direction = angle / Math.abs(angle) * 1
+
+					if ((a >= 0 && a <= selectedThreshold)) {
+						//If is selected, do not alter x position
+						return 0
+					} else if ((a > selectedThreshold && a <= transitionThreshold)) {
+						//If is within transition
+						return (a - selectedThreshold) / transitionRange;
+					} else if (a < visibleThreshold) {
+						//If is visible
+						// return 800
+						// return 0
+						return 1 - ((a - transitionThreshold) / waitingRange) * -40 * direction;
+					} else {
+						// return 800
+						// return direction * (a - visibleThreshold) * 300
+					}
+				}
+				function setOpacity(a) {
+
+					if (a >= 60) {
+						return 1 - (a - 60) / 20
+					} else {
+						return 1
+					}
+				}
+			}
+		}
+		function applyStyle() {
+
+		}
+		// var prevButton = document.querySelector('.previous-button');
+		// prevButton.addEventListener('click', function () {
+		// 	selectedIndex--;
+		// 	rotateCarousel();
+		// });
+
+		// var nextButton = document.querySelector('.next-button');
+		// nextButton.addEventListener('click', function () {
+		// 	console.log(selectedIndex)
+		// 	selectedIndex++;
+		// 	rotateCarousel();
+		// });
+		initCarousel();
+	});
+</script>
+
+<body>
+	<div class="log"></div>
+	<div class="wrapper">
+		<div class="click-zone"></div>
+		<div class="scene">
+			<div class="carousel">
+			</div>
+		</div>
+		<!-- <p style="text-align: center;">
+			<button class="previous-button">Previous</button>
+			<button class="next-button">Next</button>
+		</p> -->
+	</div>
+</body>
+
+</html>

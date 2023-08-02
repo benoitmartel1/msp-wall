@@ -5,10 +5,10 @@ function fillScreen() {
   console.log(document.documentElement.clientHeight);
   const ratio = vh / 3840;
   scalingRatio = ratio;
-  var app = document.querySelector('#app');
+
   if (log) {
-    // log.innerText = 'Ratio est de ' + ratio;
-    // log.innerText = ratio;
+    log.innerText = 'Ratio est de ' + ratio;
+    log.innerText = ratio;
   }
 
   app.style.transform = 'scale(' + ratio + ')';
@@ -69,4 +69,11 @@ async function setLoopSrc() {
       resolve();
     }
   });
+}
+
+function displayLog(msg) {
+  log.innerText = msg;
+  setTimeout(() => {
+    log.innerText = '';
+  }, 2000);
 }

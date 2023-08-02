@@ -14,62 +14,35 @@
 	<meta http-equiv="pragma" content="no-cache">
 
 	<link rel="stylesheet" href="css/fonts.css?dat=3">
-	<link rel="stylesheet" href="css/common.css?dat=6">
+	<link rel="stylesheet" href="css/common.css?dat=8">
 	<link rel="stylesheet" href="css/menu.css?dat=3">
 	<link rel="stylesheet" href="css/nav.css?dat=3">
 	<link rel="stylesheet" href="css/infos.css?dat=3">
 	<link rel="stylesheet" href="css/player.css?dat=5">
+
+	<script src="js/app.js?dat=1"></script>
 	<script src="js/common.js?dat=8"></script>
 	<script src="js/axios.js?dat=4"></script>
-	<script src="js/menu.js?dat=17"></script>
+	<script src="js/menu.js?dat=19"></script>
 	<script src="js/player.js?dat=13"></script>
 	<script src="js/nav.js?dat=8"></script>
 	<script src="js/data.js?dat=5"></script>
 	<script src="js/infos.js?dat=28"></script>
 	<script src="js/qrcode.js?dat=5"></script>
 </head>
-<style>
-	#app,
-	body,
-	html {
-		overflow: hidden;
-		/* border: 8px red solid; */
-	}
-
-	#log {
-		/* display: none; */
-		position: absolute;
-		left: 0;
-		z-index: 200;
-		color: white;
-		background-color: darkblue;
-	}
-</style>
 
 <body>
 	<div id="app">
 		<div id="log"></div>
-		<div class="secret" onclick="onSecret()"></div>
-		<!-- <img class="template" src="images/template.jpg" alt=""> -->
+		<div id="secret"></div>
 		<!-- <div id="loading" style="visibility: hidden;" class="lds-ring">
 			<div></div>
 			<div></div>
 			<div></div>
 			<div></div>
 		</div> -->
-		<div id="headset">
-			<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-				<path
-					d="M128,266.41l16.28,186.48-49.74,4.46q-35,3.12-62.46-19.85Q4.83,414.3,1.71,379.28L.37,363.66q-3.13-35,19.85-62.46t58-30.33ZM100.08,415.86,90.71,310.8l-8.92.67Q63.5,313,51.46,327.53A43,43,0,0,0,41,360.1l1.34,15.84q1.56,18.3,16.06,30.34a43,43,0,0,0,32.57,10.48ZM386.71,237.19q-1.12-55.54-37.92-95.69Q310.87,99.79,256,99.78T163.21,141.5q-36.81,40.15-37.92,95.69H79.78q1.11-74.5,51.08-128Q182.17,54.28,256,54.28t125.14,54.88q50,53.53,51.08,128Zm47.07,33.68q35,2.9,58,30.33t19.85,62.46l-1.34,15.61q-3.13,35-30.56,58.22-27.22,23-62.23,19.85l-49.74-4.46L384,266.41ZM471,360.1a43.05,43.05,0,0,0-10.48-32.57q-12-14.5-30.34-16.06l-8.92-.67-9.15,105.06,8.7.89a43.36,43.36,0,0,0,32.79-10.48q14.5-12.05,16.06-30.34Z" />
-			</svg>
-			<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-				<path
-					d="M128,266.41l16.28,186.48-49.74,4.46q-35,3.12-62.46-19.85Q4.83,414.3,1.71,379.28L.37,363.66q-3.13-35,19.85-62.46t58-30.33ZM100.08,415.86,90.71,310.8l-8.92.67Q63.5,313,51.46,327.53A43,43,0,0,0,41,360.1l1.34,15.84q1.56,18.3,16.06,30.34a43,43,0,0,0,32.57,10.48ZM386.71,237.19q-1.12-55.54-37.92-95.69Q310.87,99.79,256,99.78T163.21,141.5q-36.81,40.15-37.92,95.69H79.78q1.11-74.5,51.08-128Q182.17,54.28,256,54.28t125.14,54.88q50,53.53,51.08,128Zm47.07,33.68q35,2.9,58,30.33t19.85,62.46l-1.34,15.61q-3.13,35-30.56,58.22-27.22,23-62.23,19.85l-49.74-4.46L384,266.41ZM471,360.1a43.05,43.05,0,0,0-10.48-32.57q-12-14.5-30.34-16.06l-8.92-.67-9.15,105.06,8.7.89a43.36,43.36,0,0,0,32.79-10.48q14.5-12.05,16.06-30.34Z" />
-			</svg>
-		</div>
-		<div id="nav" onclick="toggleNav()">
-			<div class="button disabled info"
-				onclick="event.stopPropagation();if(!this.classList.contains('disabled')){onInfos()}">
+		<div id="nav">
+			<div class="button disabled info">
 				<svg id="btn-info" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 77.15 77.15">
 					<defs>
 						<style>
@@ -82,8 +55,7 @@
 						d="m38.58,0C17.27,0,0,17.27,0,38.58s17.27,38.58,38.58,38.58,38.58-17.27,38.58-38.58S59.88,0,38.58,0Zm-13.6,57.12c-2.73,0-4.95-2.21-4.95-4.95s2.21-4.95,4.95-4.95,4.95,2.21,4.95,4.95-2.21,4.95-4.95,4.95Zm0-13.6c-2.73,0-4.95-2.21-4.95-4.95s2.21-4.95,4.95-4.95,4.95,2.21,4.95,4.95-2.21,4.95-4.95,4.95Zm0-13.6c-2.73,0-4.95-2.21-4.95-4.95s2.21-4.95,4.95-4.95,4.95,2.21,4.95,4.95-2.21,4.95-4.95,4.95Zm13.6,27.2c-2.73,0-4.95-2.21-4.95-4.95s2.21-4.95,4.95-4.95,4.95,2.21,4.95,4.95-2.21,4.95-4.95,4.95Zm0-13.6c-2.73,0-4.95-2.21-4.95-4.95s2.21-4.95,4.95-4.95,4.95,2.21,4.95,4.95-2.21,4.95-4.95,4.95Zm0-13.6c-2.73,0-4.95-2.21-4.95-4.95s2.21-4.95,4.95-4.95,4.95,2.21,4.95,4.95-2.21,4.95-4.95,4.95Zm13.6,27.2c-2.73,0-4.95-2.21-4.95-4.95s2.21-4.95,4.95-4.95,4.95,2.21,4.95,4.95-2.21,4.95-4.95,4.95Zm0-13.6c-2.73,0-4.95-2.21-4.95-4.95s2.21-4.95,4.95-4.95,4.95,2.21,4.95,4.95-2.21,4.95-4.95,4.95Zm0-13.6c-2.73,0-4.95-2.21-4.95-4.95s2.21-4.95,4.95-4.95,4.95,2.21,4.95,4.95-2.21,4.95-4.95,4.95Z" />
 				</svg>
 			</div>
-			<div class="button disabled back"
-				onclick="event.stopPropagation();if(!this.classList.contains('disabled')){onBack()}">
+			<div class="button disabled back">
 				<svg id="btn-back" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 77.15 77.15">
 					<defs>
 						<style>
@@ -109,6 +81,44 @@
 						d="m47.23,24.97L4.72.43C2.62-.78,0,.73,0,3.15v49.09c0,2.42,2.62,3.94,4.72,2.72l42.52-24.55c2.1-1.21,2.1-4.24,0-5.45Z" />
 				</svg>
 			</div>
+		</div>
+		<div id="headset">
+			<svg id="Layer_2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 77.15 77.15">
+				<defs>
+					<style>
+						.cls-1 {
+							fill: #ffffff;
+							opacity: 1;
+						}
+					</style>
+				</defs>
+				<g id="Titres">
+					<path class="cls-1"
+						d="m38.58,0C17.27,0,0,17.27,0,38.58s17.27,38.58,38.58,38.58,38.58-17.27,38.58-38.58S59.88,0,38.58,0Zm22.08,56.94v.45c0,.11-.09.2-.2.2h-6.1c-.11,0-.2-.09-.2-.2v-20.24c0-.11.09-.2.2-.2h.53v-.41c0-9.05-7.36-16.41-16.41-16.41s-16.41,7.36-16.41,16.41v.41h.52c.11,0,.2.09.2.2v20.24c0,.11-.09.2-.2.2h-6.1c-.11,0-.2-.09-.2-.2v-.48c-4.23-.77-7.46-4.79-7.46-9.66s3.23-8.9,7.46-9.66v-.43c0-.11.09-.2.2-.2h.58v-.41c0-11.8,9.6-21.41,21.41-21.41s21.41,9.6,21.41,21.41v.41h.57c.11,0,.2.09.2.2v.4c4.33.67,7.66,4.75,7.66,9.7s-3.33,9.02-7.66,9.7Z" />
+				</g>
+			</svg>
+			<svg id="Layer_2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 77.15 77.15">
+				<defs>
+					<style>
+						.cls-1 {
+							fill: #ffffff;
+							opacity: 1;
+						}
+					</style>
+				</defs>
+				<g id="Titres">
+					<path class="cls-1"
+						d="m38.58,0C17.27,0,0,17.27,0,38.58s17.27,38.58,38.58,38.58,38.58-17.27,38.58-38.58S59.88,0,38.58,0Zm22.08,56.94v.45c0,.11-.09.2-.2.2h-6.1c-.11,0-.2-.09-.2-.2v-20.24c0-.11.09-.2.2-.2h.53v-.41c0-9.05-7.36-16.41-16.41-16.41s-16.41,7.36-16.41,16.41v.41h.52c.11,0,.2.09.2.2v20.24c0,.11-.09.2-.2.2h-6.1c-.11,0-.2-.09-.2-.2v-.48c-4.23-.77-7.46-4.79-7.46-9.66s3.23-8.9,7.46-9.66v-.43c0-.11.09-.2.2-.2h.58v-.41c0-11.8,9.6-21.41,21.41-21.41s21.41,9.6,21.41,21.41v.41h.57c.11,0,.2.09.2.2v.4c4.33.67,7.66,4.75,7.66,9.7s-3.33,9.02-7.66,9.7Z" />
+				</g>
+			</svg>
+			<!-- <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+				<path
+					d="M128,266.41l16.28,186.48-49.74,4.46q-35,3.12-62.46-19.85Q4.83,414.3,1.71,379.28L.37,363.66q-3.13-35,19.85-62.46t58-30.33ZM100.08,415.86,90.71,310.8l-8.92.67Q63.5,313,51.46,327.53A43,43,0,0,0,41,360.1l1.34,15.84q1.56,18.3,16.06,30.34a43,43,0,0,0,32.57,10.48ZM386.71,237.19q-1.12-55.54-37.92-95.69Q310.87,99.79,256,99.78T163.21,141.5q-36.81,40.15-37.92,95.69H79.78q1.11-74.5,51.08-128Q182.17,54.28,256,54.28t125.14,54.88q50,53.53,51.08,128Zm47.07,33.68q35,2.9,58,30.33t19.85,62.46l-1.34,15.61q-3.13,35-30.56,58.22-27.22,23-62.23,19.85l-49.74-4.46L384,266.41ZM471,360.1a43.05,43.05,0,0,0-10.48-32.57q-12-14.5-30.34-16.06l-8.92-.67-9.15,105.06,8.7.89a43.36,43.36,0,0,0,32.79-10.48q14.5-12.05,16.06-30.34Z" />
+			</svg>
+			<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+				<path
+					d="M128,266.41l16.28,186.48-49.74,4.46q-35,3.12-62.46-19.85Q4.83,414.3,1.71,379.28L.37,363.66q-3.13-35,19.85-62.46t58-30.33ZM100.08,415.86,90.71,310.8l-8.92.67Q63.5,313,51.46,327.53A43,43,0,0,0,41,360.1l1.34,15.84q1.56,18.3,16.06,30.34a43,43,0,0,0,32.57,10.48ZM386.71,237.19q-1.12-55.54-37.92-95.69Q310.87,99.79,256,99.78T163.21,141.5q-36.81,40.15-37.92,95.69H79.78q1.11-74.5,51.08-128Q182.17,54.28,256,54.28t125.14,54.88q50,53.53,51.08,128Zm47.07,33.68q35,2.9,58,30.33t19.85,62.46l-1.34,15.61q-3.13,35-30.56,58.22-27.22,23-62.23,19.85l-49.74-4.46L384,266.41ZM471,360.1a43.05,43.05,0,0,0-10.48-32.57q-12-14.5-30.34-16.06l-8.92-.67-9.15,105.06,8.7.89a43.36,43.36,0,0,0,32.79-10.48q14.5-12.05,16.06-30.34Z" />
+			</svg> -->
 		</div>
 		<div id="player" class="section">
 			<video id="video" class="disabled">
@@ -251,71 +261,6 @@
 			</div>
 		</div>
 	</div>
-
-
-	<script>
-		var bornes;
-		var borne;
-		var selectedBorne;
-		var currentVideo = null;
-		var videoIsFading = false;
-		var fadeDuration = 600;
-		var showCaptions = true;
-		var fadeOutInterval;
-		var scalingRatio = 1	// var borne;
-		var log;
-		window.addEventListener("load", function () {
-			log = document.getElementById("log")
-			fillScreen();
-
-			var player = document.getElementById("video")
-
-			//Get data for all bornes
-			bornes = data.bornes
-			//Get borne number
-			selectedBorne = window.localStorage.getItem('borne');
-			borneIndex = (selectedBorne) ? selectedBorne : 1
-
-			//Get data for this borne	
-			borne = bornes.find(b => b.id == borneIndex)
-
-			show(document.querySelector('#menu'))
-
-			intializeMenu(borne);
-			initVideoListeners(player);
-
-		});
-
-		var touchstartX, touchstartY, touchendX, touchendY
-		var touchableElement = document.getElementById('app');
-		// touchableElement.addEventListener('touchstart', function (event) {
-		// 	touchstartX = event.changedTouches[0].screenX;
-		// 	touchstartY = event.changedTouches[0].screenY;
-		// }, false);
-
-		// touchableElement.addEventListener('touchend', function (event) {
-		// 	touchendX = event.changedTouches[0].screenX;
-		// 	touchendY = event.changedTouches[0].screenY;
-		// 	handleGesture();
-		// }, false);
-
-		function displayLog(msg) {
-			log.innerText = msg
-			setTimeout(() => {
-				log.innerText = ''
-			}, 2000);
-		}
-		function handleGesture() {
-			if (touchendX < touchstartX) {
-				displayLog('Swiped Left')
-			}
-
-			if (touchendX > touchstartX) {
-				displayLog('Swiped Right')
-			}
-
-		}
-	</script>
 </body>
 
 </html>

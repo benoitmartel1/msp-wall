@@ -101,7 +101,7 @@ async function stopVideo() {
 }
 function initVideoListeners(p) {
   //Pause video
-  p.addEventListener('click', function (e) {
+  p.addEventListener(touchEvent, function (e) {
     if (!p.paused) {
       //   console.log('pause');
       p.pause();

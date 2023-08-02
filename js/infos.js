@@ -44,7 +44,7 @@ async function intializeInfos() {
 
     img.addEventListener('load', fadeImg);
 
-    img.addEventListener('click', function (e) {
+    img.addEventListener(touchEvent, function (e) {
       onLeaveInfos();
       playVideo(c.path);
     });
@@ -60,6 +60,7 @@ async function intializeInfos() {
   );
 }
 function onLeaveInfos() {
+  closeNav();
   document.querySelector('.qr').classList.add('disabled');
   clearIdleTimeout();
 }
@@ -76,12 +77,16 @@ function clearIdleTimeout() {
 }
 
 window.addEventListener('load', function () {
-  document.querySelector('.arrow.left').addEventListener('click', function () {
-    moveToSelected('prev');
-  });
-  document.querySelector('.arrow.right').addEventListener('click', function () {
-    moveToSelected('next');
-  });
+  document
+    .querySelector('.arrow.left')
+    .addEventListener(touchEvent, function () {
+      moveToSelected('prev');
+    });
+  document
+    .querySelector('.arrow.right')
+    .addEventListener(touchEvent, function () {
+      moveToSelected('next');
+    });
 });
 
 // //=========Functions for Carousel
@@ -118,7 +123,7 @@ function populateCarousel(videos) {
     img.classList.add('disabled');
     img.addEventListener('load', fadeImg);
 
-    img.addEventListener('click', function (e) {
+    img.addEventListener(touchEvent, function (e) {
       selectVideo(e, v.path);
     });
     div.append(img);

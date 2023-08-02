@@ -1,12 +1,11 @@
 var titleInterval;
 var titleSwitchIntervalDuration = 3000;
 var titlesAreSame = [false, false];
+var switchTitles = true;
 
 async function intializeMenu(borne) {
-  //Set background video at the back
-  await setLoopSrc();
-
   document.querySelector('.choices').classList.remove('alt');
+
   if (borne.isAlt) document.querySelector('.choices').classList.add('alt');
 
   //Define the click zones
@@ -15,18 +14,20 @@ async function intializeMenu(borne) {
     if (index == 0) {
       item.style.clipPath = 'polygon(' + borne.clipPath + ')';
     }
-    var mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(
-      navigator.userAgent
-    );
-    console.log(mobile);
-    var touchEvent = mobile ? 'touchstart' : 'mousedown';
-    //On click listener
+
+    //On CLICK ZONE click listener
     item.addEventListener(touchEvent, function (e) {
-      //   currentVideo = borne.choices[index].path;
+      document.querySelectorAll('.title').forEach((el) => {
+        el.classList.add('animation-disabled');
+      });
       document.querySelectorAll('.choice')[index].classList.add('selected');
       document
         .querySelectorAll('.choice')
         [Math.abs(index - 1)].classList.add('disabled');
+      closeNav();
+      //Hide Nav
+      document.querySelector('#nav').style.left = '-100px';
+      switchTitles = false;
       setTimeout(() => {
         playVideo(borne.choices[index].path);
       }, 1000);
@@ -46,7 +47,7 @@ async function intializeMenu(borne) {
 
   //Start the interval to switch titles between languages
   titleInterval = setInterval(() => {
-    if (currentVideo == null) {
+    if (currentVideo == null && switchTitles) {
       document.querySelectorAll('.choice').forEach((item, index) => {
         if (!titlesAreSame[index]) {
           let isVisible = item
@@ -62,4 +63,7 @@ async function intializeMenu(borne) {
       });
     }
   }, titleSwitchIntervalDuration);
+
+  //Set background video at the back
+  await setLoopSrc();
 }
