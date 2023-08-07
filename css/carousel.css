@@ -1,0 +1,62 @@
+/* * {
+  box-sizing: border-box;
+  user-select: none;
+}
+
+body {
+  font-family: sans-serif;
+} */
+
+/* .wrapper {
+	border: 2px solid blue;
+	width: 940px;
+	height: 300px;
+} */
+
+.scene {
+  /* border: 1px solid #CCC; */
+  position: relative;
+  width: 200px;
+  height: 140px;
+  margin: 60px auto;
+  perspective: 1000px;
+  transform: scale(3);
+  cursor: pointer;
+}
+
+.carousel {
+  width: 200px;
+  height: 100px;
+  position: absolute;
+  /* transform: translateY(20px) translateZ(-100px); */
+  transform-style: preserve-3d;
+  transform-origin: 50% 0px 0px;
+}
+
+.click-zone {
+  width: 940px;
+  height: 300px;
+  background-color: greenyellow;
+  opacity: 0;
+  position: absolute;
+  z-index: 10;
+}
+
+.carousel__cell {
+  transform-origin: 50px 0 0;
+  left: 50px;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 100px;
+  height: 100px;
+}
+
+.carousel__cell img {
+  height: 100%;
+  user-select: none;
+  pointer-events: none;
+}

@@ -9,18 +9,23 @@ var fadeOutInterval;
 var scalingRatio = 1; // var borne;
 var log;
 var touchEvent = 'touchstart';
+var touchEnd = 'touchend';
+var isMobile = false;
 var player;
 var app;
+var isDev = true;
+var previousTouch;
 
 window.addEventListener('load', function () {
   app = document.querySelector('#app');
-  var mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(
+  isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(
     navigator.userAgent
   );
-  touchEvent = mobile ? 'touchstart' : 'mousedown';
+  touchEvent = isMobile ? 'touchstart' : 'mousedown';
+  touchEnd = isMobile ? 'touchend' : 'mouseup';
 
   log = document.getElementById('log');
-  fillScreen();
+  fillScreen(isMobile);
 
   player = document.getElementById('video');
 
@@ -37,27 +42,37 @@ window.addEventListener('load', function () {
 
   intializeMenu(borne);
   initVideoListeners(player);
+
+  //   var touchstartX, touchstartY, touchendX, touchendY;
+  //   var touchableElement = document.getElementById('app');
+
+  //   touchableElement.addEventListener(
+  //     'touchstart',
+  //     function (event) {
+  //       //   displayLog('start');
+  //       touchstartX = event.changedTouches[0].screenX;
+  //       touchstartY = event.changedTouches[0].screenY;
+  //     },
+  //     false
+  //   );
+
+  //   touchableElement.addEventListener(
+  //     'touchend',
+  //     function (event) {
+  //       touchendX = event.changedTouches[0].screenX;
+  //       touchendY = event.changedTouches[0].screenY;
+  //       handleGesture();
+  //     },
+  //     false
+  //   );
+
+  //   function handleGesture() {
+  //     if (touchendX < touchstartX) {
+  //       displayLog('Swiped Left');
+  //     }
+
+  //     if (touchendX > touchstartX) {
+  //       displayLog('Swiped Right');
+  //     }
+  //   }
 });
-
-var touchstartX, touchstartY, touchendX, touchendY;
-var touchableElement = document.getElementById('app');
-// touchableElement.addEventListener('touchstart', function (event) {
-// 	touchstartX = event.changedTouches[0].screenX;
-// 	touchstartY = event.changedTouches[0].screenY;
-// }, false);
-
-// touchableElement.addEventListener('touchend', function (event) {
-// 	touchendX = event.changedTouches[0].screenX;
-// 	touchendY = event.changedTouches[0].screenY;
-// 	handleGesture();
-// }, false);
-
-function handleGesture() {
-  if (touchendX < touchstartX) {
-    displayLog('Swiped Left');
-  }
-
-  if (touchendX > touchstartX) {
-    displayLog('Swiped Right');
-  }
-}

@@ -1,15 +1,24 @@
+var idleTimeout;
+var idleTimeoutDuration = 30000;
+var hasMoved = false;
+
 const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
-function fillScreen() {
-  const vh = Math.max(document.documentElement.clientHeight || 0);
-  console.log(document.documentElement.clientHeight);
-  const ratio = vh / 3840;
+function fillScreen(isMobile) {
+  var vh;
+  if (isMobile) {
+    vh = Math.max(document.documentElement.clientWidth || 0);
+  } else {
+    vh = Math.max(document.documentElement.clientHeight || 0);
+  }
+
+  const ratio = vh / (isMobile ? 2160 : 3840);
   scalingRatio = ratio;
 
-  if (log) {
-    log.innerText = 'Ratio est de ' + ratio;
-    log.innerText = ratio;
-  }
+  //   if (log) {
+  //     log.innerText = 'Ratio est de ' + ratio;
+  //     log.innerText = ratio;
+  //   }
 
   app.style.transform = 'scale(' + ratio + ')';
 }
@@ -58,7 +67,7 @@ async function setLoopSrc() {
   //Set the video loop in background
   return new Promise((resolve) => {
     var l = document.getElementById('loop-video');
-    var videoPath = 'videos/loop/' + borne.id + '.mp4';
+    var videoPath = 'videos/loop/' + (isDev ? 'lo/' : '') + borne.id + '.mp4';
     if (l.src == '' && UrlExists(videoPath)) {
       l.src = videoPath;
       l.oncanplay = (event) => {
@@ -76,4 +85,17 @@ function displayLog(msg) {
   setTimeout(() => {
     log.innerText = '';
   }, 2000);
+}
+
+function setIdleTimeout() {
+  //   console.log('  setIdleTimeout();');
+  idleTimeout = setTimeout(() => {
+    console.log('back from timeout');
+    onBack();
+  }, idleTimeoutDuration);
+}
+
+function clearIdleTimeout() {
+  console.log('clear');
+  clearTimeout(idleTimeout);
 }

@@ -73,7 +73,8 @@ async function playVideo(videoName) {
     }
 
     //Prepare the new video
-    p.src = 'videos/' + videoName + '.mp4';
+    p.src = 'videos/' + (isDev ? 'lo/' : '') + videoName + '.mp4';
+    console.log(p.src);
     p.volume = 1;
 
     p.oncanplaythrough = (event) => {
@@ -103,9 +104,10 @@ function initVideoListeners(p) {
   //Pause video
   p.addEventListener(touchEvent, function (e) {
     if (!p.paused) {
-      //   console.log('pause');
+      setIdleTimeout();
       p.pause();
     } else {
+      clearIdleTimeout();
       p.play();
     }
   });

@@ -1,9 +1,6 @@
-var idleTimeout;
-var idleTimeoutDuration = 30000;
-
 async function intializeInfos() {
   var featured = document.querySelector('.featured');
-  var carousel = document.querySelector('#carousel');
+  //   var carousel = document.querySelector('#carousel');
 
   //Set QR code Name above
   var currentVideoName;
@@ -17,7 +14,7 @@ async function intializeInfos() {
   //Clear containers
   document.querySelector('.qr').innerHTML = '';
   featured.innerHTML = '';
-  carousel.innerHTML = '';
+  //   carousel.innerHTML = '';
 
   window.addEventListener(
     'qrReady',
@@ -28,6 +25,7 @@ async function intializeInfos() {
   );
 
   getQr(currentVideo);
+  console.log('a');
   setIdleTimeout();
   await setLoopSrc();
 
@@ -51,13 +49,13 @@ async function intializeInfos() {
   });
 
   //Populate carousel
-  populateCarousel(
-    bornes
-      .flatMap((e) => e.choices)
-      .filter(
-        (v) => v.id !== borne.choices[0].id && v.id !== borne.choices[1].id
-      )
-  );
+  //   populateCarousel(
+  //     bornes
+  //       .flatMap((e) => e.choices)
+  //       .filter(
+  //         (v) => v.id !== borne.choices[0].id && v.id !== borne.choices[1].id
+  //       )
+  //   );
 }
 function onLeaveInfos() {
   closeNav();
@@ -65,162 +63,151 @@ function onLeaveInfos() {
   clearIdleTimeout();
 }
 
-function setIdleTimeout() {
-  idleTimeout = setTimeout(() => {
-    console.log('back from timeout');
-    onBack();
-  }, idleTimeoutDuration);
-}
-
-function clearIdleTimeout() {
-  clearTimeout(idleTimeout);
-}
-
-window.addEventListener('load', function () {
-  document
-    .querySelector('.arrow.left')
-    .addEventListener(touchEvent, function () {
-      moveToSelected('prev');
-    });
-  document
-    .querySelector('.arrow.right')
-    .addEventListener(touchEvent, function () {
-      moveToSelected('next');
-    });
-});
+// window.addEventListener('load', function () {
+//   document
+//     .querySelector('.arrow.left')
+//     .addEventListener(touchEvent, function () {
+//       moveToSelected('prev');
+//     });
+//   document
+//     .querySelector('.arrow.right')
+//     .addEventListener(touchEvent, function () {
+//       moveToSelected('next');
+//     });
+// });
 
 // //=========Functions for Carousel
-function populateCarousel(videos) {
-  var midItem = Math.floor(videos.length / 2);
-  videos.forEach((v, index) => {
-    var myClass;
-    switch (index - midItem) {
-      case 0:
-        myClass = 'selected';
-        break;
-      case 1:
-        myClass = 'next';
-        break;
-      case 2:
-        myClass = 'nextRightSecond';
-        break;
-      case -1:
-        myClass = 'prev';
-        break;
-      case -2:
-        myClass = 'prevLeftSecond';
-        break;
-      default:
-        myClass = index - midItem > 2 ? 'hideRight' : 'hideLeft';
-        break;
-    }
+// function populateCarousel(videos) {
+//   var midItem = Math.floor(videos.length / 2);
+//   videos.forEach((v, index) => {
+//     var myClass;
+//     switch (index - midItem) {
+//       case 0:
+//         myClass = 'selected';
+//         break;
+//       case 1:
+//         myClass = 'next';
+//         break;
+//       case 2:
+//         myClass = 'nextRightSecond';
+//         break;
+//       case -1:
+//         myClass = 'prev';
+//         break;
+//       case -2:
+//         myClass = 'prevLeftSecond';
+//         break;
+//       default:
+//         myClass = index - midItem > 2 ? 'hideRight' : 'hideLeft';
+//         break;
+//     }
 
-    const div = document.createElement('div');
-    const img = document.createElement('img');
-    div.classList.add(myClass);
+//     const div = document.createElement('div');
+//     const img = document.createElement('img');
+//     div.classList.add(myClass);
 
-    img.src = 'images/videos/' + v.path + '.png';
-    img.classList.add('disabled');
-    img.addEventListener('load', fadeImg);
+//     img.src = 'images/videos/' + v.path + '.png';
+//     img.classList.add('disabled');
+//     img.addEventListener('load', fadeImg);
 
-    img.addEventListener(touchEvent, function (e) {
-      selectVideo(e, v.path);
-    });
-    div.append(img);
-    document.querySelector('#carousel').append(div);
-  });
-}
+//     img.addEventListener(touchEvent, function (e) {
+//       selectVideo(e, v.path);
+//     });
+//     div.append(img);
+//     document.querySelector('#carousel').append(div);
+//   });
+// }
 function fadeImg() {
   setTimeout(() => {
     this.classList.remove('disabled');
   }, 50);
 }
-function selectVideo(elem, name) {
-  if (elem.target.parentNode.classList.contains('selected')) {
-    onLeaveInfos();
-    playVideo(name);
-  } else {
-    moveToSelected(elem.target.parentNode);
-  }
-}
+// function selectVideo(elem, name) {
+//   if (elem.target.parentNode.classList.contains('selected')) {
+//     onLeaveInfos();
+//     playVideo(name);
+//   } else {
+//     moveToSelected(elem.target.parentNode);
+//   }
+// }
 
-function moveToSelected(element) {
-  clearIdleTimeout();
-  setIdleTimeout();
+// function moveToSelected(element) {
+//   clearIdleTimeout();
+//   setIdleTimeout();
 
-  if (document.querySelector('#carousel .selected')) {
-    var next;
-    var prev;
-    var prevSecond;
-    var nextSecond;
-    if (element == 'next') {
-      var selected = document.querySelector(
-        '#carousel .selected'
-      ).nextElementSibling;
-    } else if (element == 'prev') {
-      var selected = document.querySelector(
-        '#carousel .selected'
-      ).previousElementSibling;
-    } else {
-      var selected = element;
-    }
-    if (selected) {
-      next = selected.nextElementSibling;
-      prev = selected.previousElementSibling;
-      selected.classList.remove(...selected.classList);
-      selected.classList.add('selected');
-    }
+//   if (document.querySelector('#carousel .selected')) {
+//     var next;
+//     var prev;
+//     var prevSecond;
+//     var nextSecond;
+//     if (element == 'next') {
+//       var selected = document.querySelector(
+//         '#carousel .selected'
+//       ).nextElementSibling;
+//     } else if (element == 'prev') {
+//       var selected = document.querySelector(
+//         '#carousel .selected'
+//       ).previousElementSibling;
+//     } else {
+//       var selected = element;
+//     }
+//     if (selected) {
+//       next = selected.nextElementSibling;
+//       prev = selected.previousElementSibling;
+//       selected.classList.remove(...selected.classList);
+//       selected.classList.add('selected');
+//     }
 
-    if (prev) {
-      prev.classList.remove(...prev.classList);
-      prev.classList.add('prev');
-      prevSecond = prev.previousElementSibling;
-    }
-    if (next) {
-      next.classList.remove(...next.classList);
-      next.classList.add('next');
-      nextSecond = next.nextElementSibling;
-    }
-    if (nextSecond) {
-      nextSecond.classList.remove(...nextSecond.classList);
-      nextSecond.classList.add('nextRightSecond');
-      nextAll(nextSecond).forEach((elem) => {
-        elem.classList.remove(...elem.classList);
-        elem.classList.add('hideRight');
-      });
-    }
-    if (prevSecond) {
-      prevSecond.classList.remove(...prevSecond.classList);
-      prevSecond.classList.add('prevLeftSecond');
-      prevAll(prevSecond).forEach((elem) => {
-        elem.classList.remove(...elem.classList);
-        elem.classList.add('hideLeft');
-      });
-    }
-  }
-}
-const nextAll = (element) => {
-  const nextElements = [];
-  let nextElement = element;
+//     if (prev) {
+//       prev.classList.remove(...prev.classList);
+//       prev.classList.add('prev');
+//       prevSecond = prev.previousElementSibling;
+//     }
+//     if (next) {
+//       next.classList.remove(...next.classList);
+//       next.classList.add('next');
+//       nextSecond = next.nextElementSibling;
+//     }
+//     if (nextSecond) {
+//       nextSecond.classList.remove(...nextSecond.classList);
+//       nextSecond.classList.add('nextRightSecond');
+//       nextAll(nextSecond).forEach((elem) => {
+//         elem.classList.remove(...elem.classList);
+//         elem.classList.add('hideRight');
+//       });
+//     }
+//     if (prevSecond) {
+//       prevSecond.classList.remove(...prevSecond.classList);
+//       prevSecond.classList.add('prevLeftSecond');
+//       prevAll(prevSecond).forEach((elem) => {
+//         elem.classList.remove(...elem.classList);
+//         elem.classList.add('hideLeft');
+//       });
+//     }
+//   }
+// }
+// const nextAll = (element) => {
+//   const nextElements = [];
+//   let nextElement = element;
 
-  while (nextElement.nextElementSibling) {
-    nextElements.push(nextElement.nextElementSibling);
-    nextElement = nextElement.nextElementSibling;
-  }
+//   while (nextElement.nextElementSibling) {
+//     nextElements.push(nextElement.nextElementSibling);
+//     nextElement = nextElement.nextElementSibling;
+//   }
 
-  return nextElements;
-};
-const prevAll = (element) => {
-  const prevElements = [];
-  let prevElement = element;
+//   return nextElements;
+// };
+// const prevAll = (element) => {
+//   const prevElements = [];
+//   let prevElement = element;
 
-  while (prevElement.previousElementSibling) {
-    prevElements.push(prevElement.previousElementSibling);
-    prevElement = prevElement.previousElementSibling;
-  }
+//   while (prevElement.previousElementSibling) {
+//     prevElements.push(prevElement.previousElementSibling);
+//     prevElement = prevElement.previousElementSibling;
+//   }
 
-  return prevElements;
-};
+//   return prevElements;
+// };
 
 // //=========Functions for QR Code
 function displayQr(url) {
