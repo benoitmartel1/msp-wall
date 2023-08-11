@@ -36,6 +36,7 @@
 .qr .text {
   font-size: 0.5em;
   opacity: 0.3;
+  display: none;
   margin: 20px 0;
 }
 
@@ -65,7 +66,7 @@
 .mid {
   width: 100%;
   flex-grow: 1;
-  margin-bottom: 200px;
+  margin-bottom: 100px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -77,7 +78,13 @@
   margin-bottom: 55px;
 }
 .borne-name {
-  margin-bottom: 50px;
+  white-space: pre-wrap;
+  line-height: 1em;
+  /* filter: blur(10px); */
+  font-size: 1em;
+  font-family: 'Woodland';
+  font-weight: 900;
+  margin-bottom: 90px;
 }
 .bottom {
   /* border: 2px solid orange; */
@@ -133,13 +140,14 @@
 .arrow.left {
   transform: scaleX(-1);
 }
-
-#carousel {
+/* #carousel {
   min-height: 342px;
   overflow: hidden;
   position: relative;
   width: 60%;
-}
+} */
+/* 
+
 
 #carousel div {
   position: absolute;
@@ -194,4 +202,4 @@
   left: 85%;
   transform: scale(0.75) translateX(-45%);
   opacity: 0.7;
-}
+} */

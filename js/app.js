@@ -1,33 +1,48 @@
-var bornes;
-var borne;
-var selectedBorne;
-var currentVideo = null;
+//DOM Elements shortcuts
+var app, menu, player, infos;
+var video, log;
+
+//Data containers
+var bornes, borne, selectedBorne;
+
+//Bools
+var isMobile = false;
+var isDev = true;
 var videoIsFading = false;
+
+var currentVideo = null;
+var currentSection = 'menu';
+
 var fadeDuration = 600;
 var showCaptions = true;
 var fadeOutInterval;
 var scalingRatio = 1; // var borne;
-var log;
 var touchEvent = 'touchstart';
 var touchEnd = 'touchend';
-var isMobile = false;
-var player;
-var app;
-var isDev = true;
+
 var previousTouch;
 
 window.addEventListener('load', function () {
   app = document.querySelector('#app');
+  menu = document.querySelector('#menu');
+  player = document.querySelector('#player');
+  infos = document.querySelector('#infos');
+  video = document.querySelector('#video');
+  log = document.querySelector('#log');
+
+  //Define Touch events if mobile or web
   isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(
     navigator.userAgent
   );
+
   touchEvent = isMobile ? 'touchstart' : 'mousedown';
   touchEnd = isMobile ? 'touchend' : 'mouseup';
 
-  log = document.getElementById('log');
-  fillScreen(isMobile);
+  app.addEventListener(touchEvent, function (e) {
+    clearIdleTimeout();
+  });
 
-  player = document.getElementById('video');
+  fillScreen(isMobile);
 
   //Get data for all bornes
   bornes = data.bornes;
@@ -38,41 +53,8 @@ window.addEventListener('load', function () {
   //Get data for this borne
   borne = bornes.find((b) => b.id == borneIndex);
 
-  show(document.querySelector('#menu'));
-
   intializeMenu(borne);
-  initVideoListeners(player);
+  initVideoListeners(video);
 
-  //   var touchstartX, touchstartY, touchendX, touchendY;
-  //   var touchableElement = document.getElementById('app');
-
-  //   touchableElement.addEventListener(
-  //     'touchstart',
-  //     function (event) {
-  //       //   displayLog('start');
-  //       touchstartX = event.changedTouches[0].screenX;
-  //       touchstartY = event.changedTouches[0].screenY;
-  //     },
-  //     false
-  //   );
-
-  //   touchableElement.addEventListener(
-  //     'touchend',
-  //     function (event) {
-  //       touchendX = event.changedTouches[0].screenX;
-  //       touchendY = event.changedTouches[0].screenY;
-  //       handleGesture();
-  //     },
-  //     false
-  //   );
-
-  //   function handleGesture() {
-  //     if (touchendX < touchstartX) {
-  //       displayLog('Swiped Left');
-  //     }
-
-  //     if (touchendX > touchstartX) {
-  //       displayLog('Swiped Right');
-  //     }
-  //   }
+  show(menu);
 });

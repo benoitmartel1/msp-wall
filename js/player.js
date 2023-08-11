@@ -1,5 +1,12 @@
 var headsetDelay = 2000;
 
+document.addEventListener('keyup', (e) => {
+  var vid = document.getElementById('video');
+  if (e.key == 's' && !vid.paused) {
+    vid.currentTime = vid.duration - 3;
+  }
+});
+
 window.addEventListener('load', function () {
   // displayLog('999')
   var p = document.getElementById('video');
@@ -11,7 +18,7 @@ window.addEventListener('load', function () {
       var c = document.querySelector('.caption');
       c.innerText = showCaptions && cue ? cue.text : '';
       //   console.log(c.innerText);
-      c.style.display = c.innerText.length < 2 ? 'none' : 'block';
+      c.style.display = c.innerText.trim().length < 2 ? 'none' : 'block';
     });
     tracks.mode = 'showing';
   };
@@ -46,7 +53,7 @@ async function playVideo(videoName) {
     //Show Ecouteurs
     // document.querySelector('#loading').style.display = 'block';
     //Hide current Show player
-    show(document.querySelector('#player'));
+    show(player);
     //Hide Nav
     document.querySelector('#nav').style.left = '-100px';
     //Show headset
@@ -56,10 +63,6 @@ async function playVideo(videoName) {
     //Wait x seconds
     await delay(headsetDelay);
 
-    // document.getElementById('loop-video').src = '';
-    // currentVideo = videoName;
-
-    var p = document.getElementById('video');
     //Clear the fadeOut if still occuring
     clearInterval(fadeOutInterval);
 
@@ -73,13 +76,12 @@ async function playVideo(videoName) {
     }
 
     //Prepare the new video
-    p.src = 'videos/' + (isDev ? 'lo/' : '') + videoName + '.mp4';
-    console.log(p.src);
-    p.volume = 1;
+    video.src = 'videos/' + (isDev ? 'lo/' : '') + videoName + '.mp4';
+    video.volume = 1;
 
-    p.oncanplaythrough = (event) => {
-      p.classList.remove('disabled');
-      p.classList.add('visible');
+    video.oncanplaythrough = (event) => {
+      video.classList.remove('disabled');
+      video.classList.add('visible');
 
       document.querySelector('.caption').style.display = showCaptions
         ? 'none'
@@ -87,10 +89,11 @@ async function playVideo(videoName) {
 
       //Hide headset
       document.querySelector('#headset').style.opacity = 0;
-      //   document.querySelector('#loading').style.display = 'none';
+
       //Show Nav
       document.querySelector('#nav').style.left = 0;
-      p.play();
+      video.play();
+      clearIdleTimeout();
     };
   }
 }
@@ -98,16 +101,14 @@ async function stopVideo() {
   document.querySelector('track').src = 'vtt/empty.vtt';
   document.querySelector('.caption').style.display = 'none';
 
-  await fadeOutVideo(document.getElementById('video'), true);
+  await fadeOutVideo(video, true);
 }
 function initVideoListeners(p) {
   //Pause video
   p.addEventListener(touchEvent, function (e) {
     if (!p.paused) {
-      setIdleTimeout();
       p.pause();
     } else {
-      clearIdleTimeout();
       p.play();
     }
   });

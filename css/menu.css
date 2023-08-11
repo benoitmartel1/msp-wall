@@ -26,34 +26,33 @@
   /* filter: blur(10px); */
   font-size: 1.5em;
   font-family: 'Woodland';
+  font-weight: 900;
   pointer-events: none;
   color: white;
-  font-weight: 900;
+
   position: absolute;
   z-index: 110;
   display: inline-flex;
   transform-origin: left top;
   top: 45%;
   opacity: 1;
-  transition: all 600ms ease-out;
+  transition: all 600ms ease;
 }
 .title.animation-disabled {
   animation: none;
 }
 @keyframes hello {
   0%,
-  80%,
+  88%,
   100% {
     margin-top: 0;
   }
-  85% {
-    margin-top: 20px;
-  }
-  90% {
-    margin-top: -20px;
-  }
-  95% {
+  90%,
+  98% {
     margin-top: 15px;
+  }
+  94% {
+    margin-top: -15px;
   }
 }
 .title.disabled {

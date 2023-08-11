@@ -9,7 +9,7 @@ function fillScreen(isMobile) {
   if (isMobile) {
     vh = Math.max(document.documentElement.clientWidth || 0);
   } else {
-    vh = Math.max(document.documentElement.clientHeight || 0);
+    vh = Math.max(document.documentElement.clientHeight * 0.9 || 0);
   }
 
   const ratio = vh / (isMobile ? 2160 : 3840);
@@ -23,6 +23,7 @@ function fillScreen(isMobile) {
   app.style.transform = 'scale(' + ratio + ')';
 }
 function show(item) {
+  currentSection = item.id;
   document.querySelectorAll('.front').forEach((s) => {
     s.classList.remove('front');
   });
@@ -88,7 +89,7 @@ function displayLog(msg) {
 }
 
 function setIdleTimeout() {
-  //   console.log('  setIdleTimeout();');
+  console.log('set idle');
   idleTimeout = setTimeout(() => {
     console.log('back from timeout');
     onBack();
@@ -96,6 +97,12 @@ function setIdleTimeout() {
 }
 
 function clearIdleTimeout() {
-  console.log('clear');
+  console.log('clear idle');
   clearTimeout(idleTimeout);
+  if (
+    currentSection == 'infos' ||
+    (currentSection == 'player' && video.paused)
+  ) {
+    setIdleTimeout();
+  }
 }

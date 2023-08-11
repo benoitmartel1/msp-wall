@@ -57,7 +57,6 @@ function closeNav() {
 //Hidden secret square to go back to index.html to change borne
 //This function makes sure you click 3 times fast in the div...
 function onSecret() {
-  clearIdleTimeout();
   secretCount++;
   if (secretCount > 2) {
     window.localStorage.clear();
@@ -74,21 +73,23 @@ function onSecret() {
 
 async function onInfos() {
   //If leaving player, stop movie, start loop
-  if (document.querySelector('#player').classList.contains('visible')) {
+  if (player.classList.contains('visible')) {
     await stopVideo();
   }
 
   document.querySelector('#back').classList.add('blurred');
-  // log.innerText = 'ta'
+
   intializeInfos();
-  show(document.querySelector('#infos'));
+  show(infos);
+  clearIdleTimeout();
 }
 
 async function onBack() {
-  onLeaveInfos();
+  if (currentSection == 'infos') onLeaveInfos();
 
-  clearIdleTimeout();
   currentVideo = null;
+  currentChoice = null;
+  switchTitles = true;
 
   document.querySelectorAll('.choice').forEach((item) => {
     item.classList.remove('selected');
@@ -99,12 +100,11 @@ async function onBack() {
     el.classList.remove('animation-disabled');
   });
   //If leaving player, stop movie, start loop
-  if (document.querySelector('#player').classList.contains('visible')) {
+  if (player.classList.contains('visible')) {
     await stopVideo();
     await setLoopSrc();
   }
 
   document.querySelector('#back').classList.remove('blurred');
-  show(document.querySelector('#menu'));
-  switchTitles = true;
+  show(menu);
 }

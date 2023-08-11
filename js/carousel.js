@@ -60,10 +60,12 @@ window.addEventListener('load', (e) => {
           e.target.querySelector(':scope > img')?.dataset.autoRotate;
         if (autoRotateValue == 0) {
           var src = e.target.querySelector('img').src;
-          onLeaveInfos();
-          playVideo(
-            src.substring(src.lastIndexOf('/') + 1, src.lastIndexOf('.'))
+          var videoName = src.substring(
+            src.lastIndexOf('/') + 1,
+            src.lastIndexOf('.')
           );
+          onLeaveInfos();
+          playVideo(videoName);
         } else if (autoRotateValue !== undefined) {
           autoRotate(autoRotateValue);
         }
@@ -88,8 +90,6 @@ window.addEventListener('load', (e) => {
   }
 
   function rotateCarousel(offset) {
-    clearIdleTimeout();
-
     angle += offset * 360;
     carousel.style.transform = 'rotateY(' + angle + 'deg) translateY(20px)';
 
@@ -205,7 +205,6 @@ window.addEventListener('load', (e) => {
       if (Math.abs(correction) < 0.04) {
         clearInterval(snapInterval);
         hasMoved = false;
-        setIdleTimeout();
       }
     }, 6);
   }
