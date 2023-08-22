@@ -9,7 +9,8 @@ function fillScreen(isMobile) {
   if (isMobile) {
     vh = Math.max(document.documentElement.clientWidth || 0);
   } else {
-    vh = Math.max(document.documentElement.clientHeight * 0.9 || 0);
+    vh = Math.max(document.documentElement.clientHeight || 0);
+    // vh = Math.max(1600 || 0);
   }
 
   const ratio = vh / (isMobile ? 2160 : 3840);

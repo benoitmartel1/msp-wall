@@ -20,7 +20,7 @@ window.addEventListener('load', function () {
       //   console.log(c.innerText);
       c.style.display = c.innerText.trim().length < 2 ? 'none' : 'block';
     });
-    tracks.mode = 'showing';
+    tracks.mode = 'hidden';
   };
 });
 function fadeOutVideo(video, hasSound) {
