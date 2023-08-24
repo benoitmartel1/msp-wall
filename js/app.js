@@ -56,5 +56,5 @@ window.addEventListener('load', function () {
   intializeMenu(borne);
   initVideoListeners(video);
 
-  show(menu);
+  showMenu();
 });

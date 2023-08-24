@@ -36,16 +36,22 @@ video::-webkit-media-text-track-display-backdrop {
   background-color: rgba(0, 0, 0, 0) !important;
 }
 #headset {
-  transition: all 400ms;
+  transition: all 600ms ease;
   opacity: 0;
   display: flex;
   position: absolute;
   z-index: 80;
-  width: 100%;
+  width: 92%;
+  left: 4%;
   padding: 80px;
   justify-content: space-between;
   top: 47.5%;
   pointer-events: none;
+}
+#headset.visible {
+  opacity: 1;
+  width: 100%;
+  left: 0;
 }
 #headset svg {
   fill: white;

@@ -23,33 +23,37 @@ function fillScreen(isMobile) {
 
   app.style.transform = 'scale(' + ratio + ')';
 }
-function show(item) {
-  currentSection = item.id;
-  document.querySelectorAll('.front').forEach((s) => {
-    s.classList.remove('front');
-  });
+// function show(item) {
+//   currentSection = item.id;
 
-  item.classList.add('front');
-  item.classList.add('visible');
+//   //Hide others
+//   document.querySelectorAll('.front').forEach((s) => {
+//     s.classList.remove('front');
+//   });
 
-  document.querySelectorAll('.section').forEach((s) => {
-    if (item !== s) {
-      s.classList.remove('visible');
-    }
-  });
-  document.querySelector('#nav .info').classList.remove('disabled');
-  document.querySelector('#nav .back').classList.add('disabled');
-  switch (item.id) {
-    case 'player':
-      document.querySelector('#nav .back').classList.remove('disabled');
-      break;
-    case 'infos':
-      document.querySelector('#nav .info').classList.add('disabled');
-      break;
-    default:
-      break;
-  }
-}
+//   document.querySelectorAll('.section').forEach((s) => {
+//     if (item !== s) {
+//       s.classList.remove('visible');
+//     }
+//   });
+
+//   //Show section
+//   item.classList.add('front');
+//   item.classList.add('visible');
+
+//   document.querySelector('#nav .info').classList.remove('disabled');
+//   document.querySelector('#nav .back').classList.add('disabled');
+//   switch (item.id) {
+//     case 'player':
+//       document.querySelector('#nav .back').classList.remove('disabled');
+//       break;
+//     case 'infos':
+//       document.querySelector('#nav .info').classList.add('disabled');
+//       break;
+//     default:
+//       break;
+//   }
+// }
 function UrlExists(url) {
   try {
     var http = new XMLHttpRequest();
@@ -65,11 +69,11 @@ function UrlExists(url) {
 const clamp = (num, min, max) => {
   return Math.min(Math.max(num, min), max);
 };
-async function setLoopSrc() {
+async function setLoopSrc(type) {
   //Set the video loop in background
   return new Promise((resolve) => {
     var l = document.getElementById('loop-video');
-    var videoPath = 'videos/loop/' + (isDev ? 'lo/' : '') + borne.id + '.mp4';
+    var videoPath = 'videos/loop/' + type + '/' + borne.id + '.mp4';
     if (l.src == '' && UrlExists(videoPath)) {
       l.src = videoPath;
       l.oncanplay = (event) => {
@@ -106,4 +110,7 @@ function clearIdleTimeout() {
   ) {
     setIdleTimeout();
   }
+}
+function timeout(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }

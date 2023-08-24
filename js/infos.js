@@ -34,7 +34,7 @@ async function intializeInfos() {
 
   getQr(currentVideo);
 
-  await setLoopSrc();
+  //   await setLoopSrc();
 
   //Populate featured
   borne.choices.forEach((c) => {
@@ -42,28 +42,24 @@ async function intializeInfos() {
     // if (c.path == currentVideo) {
     //   img.classList.add('visited');
     // }
-    // img.classList.add('disabled');
+    img.classList.add('disabled');
 
     img.src = 'images/videos/' + c.path + '.png';
     featured.append(img);
 
     img.addEventListener('load', fadeImg);
 
-    img.addEventListener(touchEvent, function (e) {
-      onLeaveInfos();
-      playVideo(c.path);
+    img.addEventListener(touchEvent, async function (e) {
+      await hideInfos();
+      showPlayer(c.path);
     });
   });
-}
-function onLeaveInfos() {
-  closeNav();
-  qr.classList.add('disabled');
 }
 
 function fadeImg() {
   setTimeout(() => {
     this.classList.remove('disabled');
-  }, 50);
+  }, 30);
 }
 
 // //=========Functions for QR Code

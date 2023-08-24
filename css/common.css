@@ -47,7 +47,7 @@ h6 {
   width: var(--app-width);
   height: var(--app-height);
   /* border: 1px white solid; */
-  background-color: #222;
+  background-color: black;
   transform-origin: 0 0;
   overflow: hidden;
 }

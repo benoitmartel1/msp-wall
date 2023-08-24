@@ -16,21 +16,19 @@ async function intializeMenu(borne) {
     }
 
     //On CLICK ZONE click listener
-    item.addEventListener(touchEvent, function (e) {
-      document.querySelectorAll('.title').forEach((el) => {
-        el.classList.add('animation-disabled');
-      });
+    item.addEventListener(touchEvent, async function (e) {
       document.querySelectorAll('.choice')[index].classList.add('selected');
       document
         .querySelectorAll('.choice')
         [Math.abs(index - 1)].classList.add('disabled');
-      closeNav();
-      //Hide Nav
-      document.querySelector('#nav').style.left = '-100px';
-      switchTitles = false;
-      setTimeout(() => {
-        playVideo(borne.choices[index].path);
-      }, 1000);
+
+      //Disable shake on buttons
+      document.querySelectorAll('.title').forEach((el) => {
+        el.classList.add('animation-disabled');
+      });
+      await delay(1000);
+      await hideMenu();
+      showPlayer(borne.choices[index].path);
     });
   });
 
@@ -63,7 +61,4 @@ async function intializeMenu(borne) {
       });
     }
   }, titleSwitchIntervalDuration);
-
-  //Set background video at the back
-  await setLoopSrc();
 }

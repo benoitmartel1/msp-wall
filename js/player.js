@@ -38,6 +38,7 @@ function fadeOutVideo(video, hasSound) {
     setTimeout(() => {
       clearInterval(fadeOutInterval);
       videoIsFading = false;
+      //   console.log(videoIsFading);
       video.pause();
       video.removeAttribute('src');
       video.load();
@@ -46,20 +47,29 @@ function fadeOutVideo(video, hasSound) {
   });
 }
 
-async function playVideo(videoName) {
-  currentVideo = videoName;
+async function showPlayer(videoName) {
+  currentSection = 'player';
 
+  currentVideo = videoName;
+  //   displayLog('show before fade');
   if (!videoIsFading) {
     //Show Ecouteurs
     // document.querySelector('#loading').style.display = 'block';
     //Hide current Show player
-    show(player);
+    // displayLog('show Player');
+    player.classList.add('front');
+    player.classList.add('visible');
     //Hide Nav
     document.querySelector('#nav').style.left = '-100px';
+
+    document.querySelector('#nav .info').classList.remove('disabled');
+    document.querySelector('#nav .back').classList.remove('disabled');
+
     //Show headset
-    document.querySelector('#headset').style.opacity = 1;
+    document.querySelector('#headset').classList.add('visible');
+
     //Fadeout back loop
-    await fadeOutVideo(document.getElementById('loop-video'), false);
+    // await fadeOutVideo(document.getElementById('loop-video'), false);
     //Wait x seconds
     await delay(headsetDelay);
 
@@ -76,23 +86,27 @@ async function playVideo(videoName) {
     }
 
     //Prepare the new video
-    video.src = 'videos/' + (isDev ? 'lo/' : '') + videoName + '.mp4';
+    video.src = 'videos/delayed/' + videoName + '.mp4';
     video.volume = 1;
 
     video.oncanplaythrough = (event) => {
-      video.classList.remove('disabled');
-      video.classList.add('visible');
-
-      document.querySelector('.caption').style.display = showCaptions
-        ? 'none'
-        : 'none';
-
       //Hide headset
-      document.querySelector('#headset').style.opacity = 0;
+      document.querySelector('#headset').classList.remove('visible');
 
-      //Show Nav
-      document.querySelector('#nav').style.left = 0;
-      video.play();
+      setTimeout(() => {
+        video.classList.remove('disabled');
+        video.classList.add('visible');
+
+        document.querySelector('.caption').style.display = showCaptions
+          ? 'none'
+          : 'none';
+
+        video.play();
+
+        //Show Nav
+        document.querySelector('#nav').style.left = 0;
+      }, 500);
+
       clearIdleTimeout();
     };
   }
@@ -112,7 +126,8 @@ function initVideoListeners(p) {
       p.play();
     }
   });
-  p.onended = (event) => {
-    onInfos();
+  p.onended = async function (event) {
+    await hidePlayer();
+    showInfos();
   };
 }

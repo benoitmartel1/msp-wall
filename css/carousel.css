@@ -28,11 +28,19 @@ body {
   width: 200px;
   height: 100px;
   position: absolute;
-  /* transform: translateY(20px) translateZ(-100px); */
+
+  transform: translateY(20px) translateZ(-100px);
   transform-style: preserve-3d;
   transform-origin: 50% 0px 0px;
 }
+/* .carousel .carousel__cell {
+  transition: opacity 2000ms ease;
+  opacity: 0;
+}
 
+.carousel.visible .carousel__cell {
+  opacity: 1;
+} */
 .click-zone {
   width: 940px;
   height: 300px;

@@ -104,13 +104,13 @@
 }
 
 .featured img,
-#carousel img {
-  transition: opacity 750ms;
+.carousel-wrapper img {
+  transition: opacity 400ms;
   opacity: 1;
 }
 
 .featured img.disabled,
-#carousel img.disabled {
+.carousel-wrapper img.disabled {
   opacity: 0;
 }
 

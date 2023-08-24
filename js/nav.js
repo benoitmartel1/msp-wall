@@ -72,24 +72,25 @@ function onSecret() {
 }
 
 async function onInfos() {
-  //If leaving player, stop movie, start loop
-  if (player.classList.contains('visible')) {
-    await stopVideo();
-  }
-
-  document.querySelector('#back').classList.add('blurred');
-
-  intializeInfos();
-  show(infos);
-  clearIdleTimeout();
+  currentSection == 'player' ? await hidePlayer() : await hideMenu();
+  //   await delay(4000);
+  showInfos();
 }
 
 async function onBack() {
-  if (currentSection == 'infos') onLeaveInfos();
+  currentSection == 'player' ? await hidePlayer() : await hideInfos();
+  showMenu();
+}
+
+async function showMenu() {
+  currentSection = 'menu';
 
   currentVideo = null;
   currentChoice = null;
   switchTitles = true;
+
+  document.querySelector('#nav .info').classList.remove('disabled');
+  document.querySelector('#nav .back').classList.add('disabled');
 
   document.querySelectorAll('.choice').forEach((item) => {
     item.classList.remove('selected');
@@ -99,12 +100,64 @@ async function onBack() {
   document.querySelectorAll('.title').forEach((el) => {
     el.classList.remove('animation-disabled');
   });
-  //If leaving player, stop movie, start loop
-  if (player.classList.contains('visible')) {
-    await stopVideo();
-    await setLoopSrc();
-  }
 
-  document.querySelector('#back').classList.remove('blurred');
-  show(menu);
+  await setLoopSrc('normal');
+
+  menu.classList.add('front');
+  menu.classList.add('visible');
+}
+
+async function hideMenu() {
+  document.querySelectorAll('.title').forEach((el) => {
+    el.classList.add('animation-disabled');
+  });
+
+  closeNav();
+  //Hide Nav
+  document.querySelector('#nav').style.left = '-100px';
+
+  switchTitles = false;
+  menu.classList.remove('front');
+  menu.classList.remove('visible');
+
+  await fadeOutVideo(document.getElementById('loop-video'), false);
+}
+
+async function hidePlayer() {
+  document.querySelector('track').src = 'vtt/empty.vtt';
+  document.querySelector('.caption').style.display = 'none';
+
+  player.classList.remove('front');
+  player.classList.remove('visible');
+
+  await fadeOutVideo(video, true);
+}
+
+async function showInfos() {
+  currentSection = 'infos';
+
+  intializeInfos();
+  await setLoopSrc('blurred');
+
+  document.querySelector('#nav .info').classList.add('disabled');
+  document.querySelector('#nav .back').classList.add('disabled');
+
+  document.querySelector('#nav').style.left = '0';
+
+  infos.classList.add('front');
+  infos.classList.add('visible');
+
+  document.querySelector('.carousel').classList.add('visible');
+}
+
+async function hideInfos() {
+  closeNav();
+  document.querySelector('#nav').style.left = '-100px';
+  qr.classList.add('disabled');
+
+  infos.classList.remove('front');
+  infos.classList.remove('visible');
+
+  await fadeOutVideo(document.getElementById('loop-video'), false);
+  document.querySelector('.carousel').classList.remove('visible');
 }

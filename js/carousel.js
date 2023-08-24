@@ -51,7 +51,7 @@ window.addEventListener('load', (e) => {
 
   document
     .querySelector('.carousel-wrapper')
-    .addEventListener(touchEnd, (e) => {
+    .addEventListener(touchEnd, async function (e) {
       if (hasMoved) {
         previousTouch = null;
         snapToClosestSpot();
@@ -64,8 +64,8 @@ window.addEventListener('load', (e) => {
             src.lastIndexOf('/') + 1,
             src.lastIndexOf('.')
           );
-          onLeaveInfos();
-          playVideo(videoName);
+          await hideInfos();
+          showPlayer(videoName);
         } else if (autoRotateValue !== undefined) {
           autoRotate(autoRotateValue);
         }
@@ -82,8 +82,11 @@ window.addEventListener('load', (e) => {
         'rotateY(' + (360 / cellCount) * cell + 'deg) translateZ(120px)';
       let img = document.createElement('img');
       img.src = 'images/videos/' + filteredBornes[cell].path + '.png';
+
       div.appendChild(img);
       carousel.appendChild(div);
+      img.classList.add('disabled');
+      img.addEventListener('load', fadeImg);
       cell++;
     }
     autoRotate(1);
