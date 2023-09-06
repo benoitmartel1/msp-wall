@@ -108,6 +108,7 @@ function clearIdleTimeout() {
     currentSection == 'infos' ||
     (currentSection == 'player' && video.paused)
   ) {
+    // console.log('Setting because' + video.paused);
     setIdleTimeout();
   }
 }
