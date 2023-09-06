@@ -107,7 +107,7 @@ async function showPlayer(videoName) {
         document.querySelector('#nav').style.left = 0;
       }, 500);
 
-      clearIdleTimeout();
+      //   clearIdleTimeout();
     };
   }
 }

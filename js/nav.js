@@ -92,6 +92,8 @@ async function showMenu() {
   document.querySelector('#nav .info').classList.remove('disabled');
   document.querySelector('#nav .back').classList.add('disabled');
 
+  document.querySelector('#nav').style.left = '0';
+
   document.querySelectorAll('.choice').forEach((item) => {
     item.classList.remove('selected');
     item.classList.remove('disabled');
@@ -148,6 +150,8 @@ async function showInfos() {
   infos.classList.add('visible');
 
   document.querySelector('.carousel').classList.add('visible');
+
+  clearIdleTimeout();
 }
 
 async function hideInfos() {
