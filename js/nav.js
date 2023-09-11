@@ -15,7 +15,6 @@ window.addEventListener('load', function () {
     .addEventListener(touchEvent, function (e) {
       e.stopPropagation();
       if (!e.target.classList.contains('disabled')) {
-
         onInfos();
         closeNav();
       }
@@ -26,7 +25,6 @@ window.addEventListener('load', function () {
     .addEventListener(touchEvent, function (e) {
       e.stopPropagation();
       if (!e.target.classList.contains('disabled')) {
-
         onBack();
         closeNav();
       }
@@ -80,7 +78,6 @@ async function onInfos() {
 }
 
 async function onBack() {
-
   currentSection == 'player' ? await hidePlayer() : await hideInfos();
   // displayLog('showMenu')
   showMenu();
@@ -107,16 +104,18 @@ async function showMenu() {
     el.classList.remove('animation-disabled');
   });
 
+  clearInterval(titleInterval);
+  setTitleInterval();
   await setLoopSrc('normal');
 
   menu.classList.add('front');
   menu.classList.add('visible');
 
-  clickEnabled = true
+  clickEnabled = true;
 }
 
 async function hideMenu() {
-  clickEnabled = false
+  clickEnabled = false;
   closeNav();
   //Hide Nav
   document.querySelector('#nav').style.left = '-100px';
@@ -127,25 +126,20 @@ async function hideMenu() {
 
   // document.querySelector('#loop-video').classList.add('disabled');
 
-
   await delay(800);
   // document.getElementById('loop-video').pause();
   await fadeOutVideo(document.getElementById('loop-video'), false);
-
-
 }
 
 async function hidePlayer() {
-  clickEnabled = false
+  clickEnabled = false;
   //Hide Nav
   document.querySelector('#nav').style.left = '-100px';
 
   document.querySelector('track').src = 'vtt/empty.vtt';
   document.querySelector('.caption').style.display = 'none';
-  await delay(600)
+  await delay(600);
   await fadeOutVideo(document.getElementById('video'), true);
-
-
 
   // video.classList.add('disabled');
   // displayLog('Has faded')
@@ -154,7 +148,6 @@ async function hidePlayer() {
   player.classList.remove('visible');
 
   // await delay(3000)
-
 }
 
 async function showInfos() {
@@ -171,15 +164,15 @@ async function showInfos() {
   infos.classList.add('front');
   infos.classList.add('visible');
 
-  await delay(800)
+  await delay(800);
   document.querySelector('.carousel').classList.add('visible');
 
-  clickEnabled = true
+  clickEnabled = true;
   clearIdleTimeout();
 }
 
 async function hideInfos() {
-  clickEnabled = false
+  clickEnabled = false;
   closeNav();
   document.querySelector('#nav').style.left = '-100px';
 
@@ -188,7 +181,7 @@ async function hideInfos() {
   infos.classList.remove('front');
   infos.classList.remove('visible');
 
-  await delay(800)
+  await delay(800);
   document.getElementById('loop-video').pause();
   await fadeOutVideo(document.getElementById('loop-video'), false);
   document.querySelector('.carousel').classList.remove('visible');

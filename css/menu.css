@@ -19,7 +19,27 @@
   position: absolute;
   height: 100%;
 }
+.hand {
+  width: 150px;
+  position: relative;
+}
+.hand svg {
+  width: 150px;
+  top: 20px;
+  position: absolute;
+  transform: rotate(20deg);
+  animation: hand 4s infinite;
+  /* animation-delay: 300ms; */
+  opacity: 0;
+}
+.selected .hand {
+  display: none;
+}
 
+.title {
+  display: flex;
+  flex-direction: column;
+}
 .title {
   animation: hello 4s infinite;
   white-space: pre-wrap;
@@ -33,12 +53,14 @@
 
   position: absolute;
   z-index: 110;
-  display: inline-flex;
+  /* display: inline-flex; */
   transform-origin: left top;
   top: 45%;
   opacity: 1;
   transition: all 600ms ease;
   transform: translateZ(0);
+
+  align-items: center;
 }
 
 .title.animation-disabled {
@@ -46,20 +68,46 @@
 }
 
 @keyframes hello {
-
   0%,
-  88%,
-  100% {
+  68%,
+  80% {
     margin-top: 0;
   }
 
-  90%,
-  98% {
+  70%,
+  78% {
     margin-top: 15px;
   }
 
-  94% {
+  74% {
     margin-top: -15px;
+  }
+}
+
+@keyframes hand {
+  45%,
+  68% {
+    opacity: 0;
+  }
+  45%,
+  75% {
+    margin-top: 100px;
+  }
+  56%,
+  63% {
+    transform: rotate(20deg);
+  }
+  59% {
+    transform: rotate(25deg);
+  }
+  48%,
+  65% {
+    opacity: 1;
+  }
+  56%,
+  70% {
+    margin-top: 0;
+    /* opacity: 1; */
   }
 }
 

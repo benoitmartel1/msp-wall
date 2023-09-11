@@ -9,8 +9,8 @@ var bornes, borne, selectedBorne;
 var isMobile = false;
 var isDev = true;
 var videoIsFading = false;
-var videoPaused = false
-var clickEnabled = false
+var videoPaused = false;
+var clickEnabled = false;
 
 var currentVideo = null;
 var currentSection = 'menu';
@@ -25,6 +25,8 @@ var touchEnd = 'touchend';
 var previousTouch;
 
 window.addEventListener('load', function () {
+  WebSocketTest();
+
   app = document.querySelector('#app');
   menu = document.querySelector('#menu');
   player = document.querySelector('#player');
@@ -57,8 +59,6 @@ window.addEventListener('load', function () {
 
   intializeMenu(borne);
   initVideoListeners(video);
-
-
 
   showMenu();
 });
