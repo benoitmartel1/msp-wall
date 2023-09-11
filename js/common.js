@@ -74,10 +74,16 @@ async function setLoopSrc(type) {
   return new Promise((resolve) => {
     var l = document.getElementById('loop-video');
     var videoPath = 'videos/loop/' + type + '/' + borne.id + '.mp4';
-    if (l.src == '' && UrlExists(videoPath)) {
+    if (l.src == '') {
       l.src = videoPath;
-      l.oncanplay = (event) => {
+      l.type = "video/mp4"
+
+
+      l.oncanplay = async function (event) {
+
+        // displayLog('play')
         l.classList.remove('disabled');
+        await delay(1500)
         resolve();
       };
     } else {
@@ -85,6 +91,7 @@ async function setLoopSrc(type) {
     }
   });
 }
+
 
 function displayLog(msg) {
   log.innerText = msg;
@@ -96,17 +103,19 @@ function displayLog(msg) {
 function setIdleTimeout() {
   console.log('set idle');
   idleTimeout = setTimeout(() => {
+    console.log('Timeout')
     console.log('back from timeout');
     onBack();
   }, idleTimeoutDuration);
 }
 
 function clearIdleTimeout() {
-  console.log('clear idle');
+  // console.log('clear idle');
+
   clearTimeout(idleTimeout);
   if (
     currentSection == 'infos' ||
-    (currentSection == 'player' && video.paused)
+    (currentSection == 'player' && videoPaused)
   ) {
     // console.log('Setting because' + video.paused);
     setIdleTimeout();

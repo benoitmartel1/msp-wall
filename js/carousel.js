@@ -24,6 +24,7 @@ window.addEventListener('load', (e) => {
   document
     .querySelector('.carousel-wrapper')
     .addEventListener('touchmove', function (e) {
+
       const touch = e.touches[0];
 
       if (previousTouch) {
@@ -38,6 +39,7 @@ window.addEventListener('load', (e) => {
       }
 
       previousTouch = touch;
+
     });
 
   document
@@ -52,13 +54,18 @@ window.addEventListener('load', (e) => {
   document
     .querySelector('.carousel-wrapper')
     .addEventListener(touchEnd, async function (e) {
+
       if (hasMoved) {
         previousTouch = null;
         snapToClosestSpot();
+        console.log('snapping')
       } else {
+
         var autoRotateValue =
           e.target.querySelector(':scope > img')?.dataset.autoRotate;
-        if (autoRotateValue == 0) {
+        console.log(autoRotateValue)
+        if (true) {
+          // if (autoRotateValue == 0) {
           var src = e.target.querySelector('img').src;
           var videoName = src.substring(
             src.lastIndexOf('/') + 1,
@@ -70,6 +77,7 @@ window.addEventListener('load', (e) => {
           autoRotate(autoRotateValue);
         }
       }
+
     });
 
   function initCarousel() {

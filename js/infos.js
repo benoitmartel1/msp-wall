@@ -50,8 +50,10 @@ async function intializeInfos() {
     img.addEventListener('load', fadeImg);
 
     img.addEventListener(touchEvent, async function (e) {
+
       await hideInfos();
       showPlayer(c.path);
+
     });
   });
 }

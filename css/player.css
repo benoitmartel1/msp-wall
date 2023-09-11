@@ -35,7 +35,9 @@
 video::-webkit-media-text-track-display-backdrop {
   background-color: rgba(0, 0, 0, 0) !important;
 }
+
 #headset {
+  transform: translateZ();
   transition: all 600ms ease;
   opacity: 0;
   display: flex;
@@ -47,13 +49,16 @@ video::-webkit-media-text-track-display-backdrop {
   justify-content: space-between;
   top: 47.5%;
   pointer-events: none;
+  will-change: width;
 }
+
 #headset.visible {
-  opacity: 1;
+  opacity: .8;
   width: 100%;
   left: 0;
 }
+
 #headset svg {
   fill: white;
-  width: 300px;
+  width: 200px;
 }

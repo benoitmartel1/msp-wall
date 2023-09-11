@@ -2,15 +2,18 @@
   --app-width: 2160px;
   --app-height: 3840px;
 }
+
 ::selection {
   color: none;
   background: none;
 }
+
 #app,
 body,
 html {
   overflow: hidden;
 }
+
 body {
   font-family: 'Agenda';
   color: white;
@@ -134,7 +137,7 @@ h6 {
 
 video {
   opacity: 1;
-  transition: opacity 600ms;
+  transition: opacity 600ms ease-in-out;
 }
 
 video.disabled {
@@ -147,17 +150,17 @@ video.disabled {
 }
 
 #back video {
-  transition: all 600ms ease-out;
+  /* transition: all 1000ms ease-out; */
   width: 100%;
 }
 
 #back.blurred video {
-  filter: blur(30px) brightness(0.5);
+  /* filter: blur(30px) brightness(0.5); */
   /* -webkit-filter: blur(30px);
   -moz-filter: blur(30px);
   -ms-filter: blur(30px);
   -o-filter: blur(30px); */
-  transform: scale(1.02);
+  /* transform: scale(1.02); */
 }
 
 .front {
@@ -172,6 +175,7 @@ video.disabled {
   opacity: 0.5;
   pointer-events: none;
 }
+
 #log {
   /* display: none; */
   position: absolute;

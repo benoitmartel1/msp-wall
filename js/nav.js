@@ -15,6 +15,7 @@ window.addEventListener('load', function () {
     .addEventListener(touchEvent, function (e) {
       e.stopPropagation();
       if (!e.target.classList.contains('disabled')) {
+
         onInfos();
         closeNav();
       }
@@ -25,6 +26,7 @@ window.addEventListener('load', function () {
     .addEventListener(touchEvent, function (e) {
       e.stopPropagation();
       if (!e.target.classList.contains('disabled')) {
+
         onBack();
         closeNav();
       }
@@ -78,7 +80,9 @@ async function onInfos() {
 }
 
 async function onBack() {
+
   currentSection == 'player' ? await hidePlayer() : await hideInfos();
+  // displayLog('showMenu')
   showMenu();
 }
 
@@ -92,7 +96,7 @@ async function showMenu() {
   document.querySelector('#nav .info').classList.remove('disabled');
   document.querySelector('#nav .back').classList.add('disabled');
 
-  document.querySelector('#nav').style.left = '0';
+  document.querySelector('#nav').style.left = '-100px';
 
   document.querySelectorAll('.choice').forEach((item) => {
     item.classList.remove('selected');
@@ -107,13 +111,12 @@ async function showMenu() {
 
   menu.classList.add('front');
   menu.classList.add('visible');
+
+  clickEnabled = true
 }
 
 async function hideMenu() {
-  document.querySelectorAll('.title').forEach((el) => {
-    el.classList.add('animation-disabled');
-  });
-
+  clickEnabled = false
   closeNav();
   //Hide Nav
   document.querySelector('#nav').style.left = '-100px';
@@ -122,17 +125,36 @@ async function hideMenu() {
   menu.classList.remove('front');
   menu.classList.remove('visible');
 
+  // document.querySelector('#loop-video').classList.add('disabled');
+
+
+  await delay(800);
+  // document.getElementById('loop-video').pause();
   await fadeOutVideo(document.getElementById('loop-video'), false);
+
+
 }
 
 async function hidePlayer() {
+  clickEnabled = false
+  //Hide Nav
+  document.querySelector('#nav').style.left = '-100px';
+
   document.querySelector('track').src = 'vtt/empty.vtt';
   document.querySelector('.caption').style.display = 'none';
+  await delay(600)
+  await fadeOutVideo(document.getElementById('video'), true);
+
+
+
+  // video.classList.add('disabled');
+  // displayLog('Has faded')
 
   player.classList.remove('front');
   player.classList.remove('visible');
 
-  await fadeOutVideo(video, true);
+  // await delay(3000)
+
 }
 
 async function showInfos() {
@@ -149,19 +171,25 @@ async function showInfos() {
   infos.classList.add('front');
   infos.classList.add('visible');
 
+  await delay(800)
   document.querySelector('.carousel').classList.add('visible');
 
+  clickEnabled = true
   clearIdleTimeout();
 }
 
 async function hideInfos() {
+  clickEnabled = false
   closeNav();
   document.querySelector('#nav').style.left = '-100px';
+
   qr.classList.add('disabled');
 
   infos.classList.remove('front');
   infos.classList.remove('visible');
 
+  await delay(800)
+  document.getElementById('loop-video').pause();
   await fadeOutVideo(document.getElementById('loop-video'), false);
   document.querySelector('.carousel').classList.remove('visible');
 }

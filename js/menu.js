@@ -17,18 +17,27 @@ async function intializeMenu(borne) {
 
     //On CLICK ZONE click listener
     item.addEventListener(touchEvent, async function (e) {
-      document.querySelectorAll('.choice')[index].classList.add('selected');
-      document
-        .querySelectorAll('.choice')
+      if (clickEnabled && currentSection == 'menu') {
+        clickEnabled = false
+        document.querySelectorAll('.choice')[index].classList.add('selected');
+        document
+          .querySelectorAll('.choice')
         [Math.abs(index - 1)].classList.add('disabled');
 
-      //Disable shake on buttons
-      document.querySelectorAll('.title').forEach((el) => {
-        el.classList.add('animation-disabled');
-      });
-      await delay(1000);
-      await hideMenu();
-      showPlayer(borne.choices[index].path);
+        //Disable shake on buttons
+        document.querySelectorAll('.title').forEach((el) => {
+          el.classList.add('animation-disabled');
+        });
+        document.querySelector('#nav').style.left = '-100px';
+
+        await delay(1500);
+
+
+        await hideMenu();
+
+
+        showPlayer(borne.choices[index].path);
+      }
     });
   });
 

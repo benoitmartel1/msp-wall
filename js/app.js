@@ -9,11 +9,13 @@ var bornes, borne, selectedBorne;
 var isMobile = false;
 var isDev = true;
 var videoIsFading = false;
+var videoPaused = false
+var clickEnabled = false
 
 var currentVideo = null;
 var currentSection = 'menu';
 
-var fadeDuration = 600;
+var fadeDuration = 1500;
 var showCaptions = true;
 var fadeOutInterval;
 var scalingRatio = 1; // var borne;
@@ -34,7 +36,7 @@ window.addEventListener('load', function () {
   isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(
     navigator.userAgent
   );
-
+  // isMobile = true
   touchEvent = isMobile ? 'touchstart' : 'mousedown';
   touchEnd = isMobile ? 'touchend' : 'mouseup';
 
@@ -55,6 +57,8 @@ window.addEventListener('load', function () {
 
   intializeMenu(borne);
   initVideoListeners(video);
+
+
 
   showMenu();
 });
