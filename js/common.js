@@ -78,7 +78,11 @@ async function setLoopSrc(type) {
       l.src = videoPath;
       l.type = "video/mp4"
 
-
+      // l.addEventListener('ended', function (e) {
+      //   displayLog('ended')
+      //   this.currentTime = 0.1;
+      //   this.play()
+      // })
       l.oncanplay = async function (event) {
 
         // displayLog('play')

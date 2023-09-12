@@ -25,6 +25,9 @@ var touchEnd = 'touchend';
 var previousTouch;
 
 window.addEventListener('load', function () {
+
+
+
   WebSocketTest();
 
   app = document.querySelector('#app');

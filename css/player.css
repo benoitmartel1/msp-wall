@@ -62,3 +62,22 @@ video::-webkit-media-text-track-display-backdrop {
   fill: white;
   width: 200px;
 }
+
+.arrow {
+  /* transform: scale(.8); */
+}
+
+#headset div:first-child .arrow {
+  transform: scaleX(-1);
+}
+
+#headset div:first-child .headset {
+  margin-left: 40px;
+}
+
+#headset div {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+}

@@ -67,6 +67,12 @@
 	<script>
 		var log;
 		window.onload = function () {
+			document.addEventListener('keyup', (e) => {
+
+				window.localStorage.setItem('borne', e.key)
+				window.location = "app.html"
+			});
+
 			fillScreen()
 			console.log(window.localStorage.getItem('borne'))
 			if (window.localStorage.getItem('borne')) {
