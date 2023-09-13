@@ -15,6 +15,7 @@ body {
 
 .scene {
   /* border: 1px solid #CCC; */
+  pointer-events: none;
   position: relative;
   width: 200px;
   height: 140px;
@@ -28,7 +29,7 @@ body {
   width: 200px;
   height: 100px;
   position: absolute;
-
+  pointer-events: none;
   transform: translateY(20px) translateZ(-100px);
   transform-style: preserve-3d;
   transform-origin: 50% 0px 0px;
@@ -61,10 +62,13 @@ body {
   position: absolute;
   width: 100px;
   height: 100px;
+  pointer-events: none;
+  /* transform-style: preserve-3d; */
 }
 
 .carousel__cell img {
   height: 100%;
   user-select: none;
   pointer-events: none;
+  /* transform-style: preserve-3d; */
 }

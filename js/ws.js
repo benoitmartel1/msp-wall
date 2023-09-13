@@ -1,12 +1,12 @@
 function WebSocketTest() {
   if ('WebSocket' in window) {
-    console.log('WebSocket is supported by your Browser!');
+    // console.log('WebSocket is supported by your Browser!');
 
     // Let us open a web socket
     var ws = new WebSocket('ws://192.168.0.167:1880/msp/');
 
     ws.onopen = function () {
-      console.log(ws);
+      //   console.log(ws);
       // Web Socket is connected, send data using send()
       ws.send('Message to send');
       // alert("Message is sent...");
@@ -14,29 +14,27 @@ function WebSocketTest() {
 
     ws.onmessage = async function (evt) {
       var message = JSON.parse(evt.data).payload;
-      console.log(message);
+      //   console.log(message);
       if (message == 'play' && currentSection == 'player') {
         document.querySelector('#video').play();
       } else if (message == 'pause' && currentSection == 'player') {
         document.querySelector('#video').pause();
       } else if (parseInt(message) > 0) {
-        var filteredBornes = data.bornes
-          .flatMap((e) => e.choices)
-          .filter(
-            (v) => v.id !== borne.choices[0].id && v.id !== borne.choices[1].id
-          );
-        var requestedVideoName = filteredBornes.find(
-          (b) => b.id == message
-        ).path;
+        if (clickEnabled) {
+          var filteredBornes = data.bornes.flatMap((e) => e.choices);
+          var requestedVideoName = filteredBornes.find(
+            (b) => b.id == message
+          ).path;
 
-        if (currentSection == 'menu') {
-          await hideMenu();
-        } else if (currentSection == 'player') {
-          await hidePlayer();
-        } else if (currentSection == 'infos') {
-          await hideInfos();
+          if (currentSection == 'menu') {
+            await hideMenu();
+          } else if (currentSection == 'player') {
+            await hidePlayer();
+          } else if (currentSection == 'infos') {
+            await hideInfos();
+          }
+          showPlayer(requestedVideoName);
         }
-        showPlayer(requestedVideoName);
       }
     };
 

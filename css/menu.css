@@ -33,7 +33,7 @@
   opacity: 0;
 }
 .selected .hand {
-  display: none;
+  opacity: 0 !important;
 }
 
 .title {
@@ -64,7 +64,7 @@
 }
 
 .title.animation-disabled {
-  animation: none;
+  margin-top: 0 !important;
 }
 
 @keyframes hello {
@@ -113,7 +113,6 @@
 
 .title.disabled {
   opacity: 0;
-  transition-delay: 0;
 }
 
 .choice:nth-of-type(1) .title {
@@ -131,7 +130,7 @@
 }
 
 .choice:nth-of-type(2) .title {
-  animation-delay: 300ms;
+  /* animation-delay: 300ms; */
   right: 10%;
   top: 67%;
   transform: rotate(10deg);

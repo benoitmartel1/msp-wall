@@ -102,14 +102,18 @@ async function showMenu() {
 
   document.querySelectorAll('.title').forEach((el) => {
     el.classList.remove('animation-disabled');
+    el.classList.remove('disabled');
   });
 
   clearInterval(titleInterval);
   setTitleInterval();
+
   await setLoopSrc('normal');
 
   menu.classList.add('front');
   menu.classList.add('visible');
+
+  await delay(700);
 
   clickEnabled = true;
 }

@@ -17,7 +17,7 @@ var currentSection = 'menu';
 
 var fadeDuration = 1500;
 var showCaptions = true;
-var fadeOutInterval;
+// var fadeOutInterval;
 var scalingRatio = 1; // var borne;
 var touchEvent = 'touchstart';
 var touchEnd = 'touchend';
@@ -25,9 +25,6 @@ var touchEnd = 'touchend';
 var previousTouch;
 
 window.addEventListener('load', function () {
-
-
-
   WebSocketTest();
 
   app = document.querySelector('#app');

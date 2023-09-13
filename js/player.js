@@ -26,18 +26,26 @@ window.addEventListener('load', function () {
 function fadeOutVideo(video, hasSound) {
   videoIsFading = true;
   video.classList.add('disabled');
-  // if (hasSound) {
-  //   fadeOutInterval = setInterval(() => {
-  //     var newVolume = video.volume - 50 / fadeDuration;
-  //     if (newVolume > 0) {
-  //       video.volume = newVolume;
-  //     }
-  //   }, 50);
-  // }
+  if (hasSound == true) {
+    // console.log('Setting Interval');
+    // console.log(fadeOutInterval);
+    var fadeOutInterval = setInterval(() => {
+      if (video) {
+        if (video.volume > 0.05) {
+          video.volume -= 0.05;
+        } else {
+          console.log('clearing audio fade');
+          clearInterval(fadeOutInterval);
+        }
+      } else {
+        clearInterval(fadeOutInterval);
+      }
+    }, 50);
+  }
   return new Promise((resolve) => {
     setTimeout(() => {
       // displayLog('timeout')
-      clearInterval(fadeOutInterval);
+      //   if (fadeOutInterval) clearInterval(fadeOutInterval);
       videoIsFading = false;
       //   console.log(videoIsFading);
       // video.pause();
@@ -75,7 +83,7 @@ async function showPlayer(videoName) {
     await delay(headsetDelay);
 
     //Clear the fadeOut if still occuring
-    clearInterval(fadeOutInterval);
+    // clearInterval(fadeOutInterval);
 
     //Check if captions exist
     var vttPath = 'vtt/' + videoName + '.vtt';
@@ -88,13 +96,12 @@ async function showPlayer(videoName) {
 
     //Prepare the new video
     video.src = 'videos/delayed/' + videoName + '.mp4';
-    console.log(video.volume)
 
-    video.addEventListener("timeupdate", checkIfEndIsComing, false);
+    video.addEventListener('timeupdate', checkIfEndIsComing, false);
     video.onplay = (event) => {
-      video.volume = 1;
-      console.log(video.volume)
-    }
+      video.volume = 1.0;
+      console.log(video.volume);
+    };
     video.oncanplaythrough = (event) => {
       //Hide headset
       document.querySelector('#headset').classList.remove('visible');
@@ -108,7 +115,7 @@ async function showPlayer(videoName) {
 
         //Show Nav
         document.querySelector('#nav').style.left = 0;
-        video.volume = 1;
+        video.volume = 1.0;
         // video.volume = 1.0;
         // video.volume = 100;
 
@@ -116,11 +123,7 @@ async function showPlayer(videoName) {
           ? 'none'
           : 'none';
 
-
-
-
-
-        clickEnabled = true
+        clickEnabled = true;
       }, 500);
 
       clearIdleTimeout();
@@ -128,19 +131,17 @@ async function showPlayer(videoName) {
   }
 }
 async function checkIfEndIsComing() {
-
   if (this.currentTime > this.duration - 2) {
     // displayLog('Fadeout')
     await hidePlayer();
-
   }
 }
-async function stopVideo() {
-  document.querySelector('track').src = 'vtt/empty.vtt';
-  document.querySelector('.caption').style.display = 'none';
+// async function stopVideo() {
+//   document.querySelector('track').src = 'vtt/empty.vtt';
+//   document.querySelector('.caption').style.display = 'none';
 
-  await fadeOutVideo(video, true);
-}
+//   await fadeOutVideo(video, true);
+// }
 function initVideoListeners(p) {
   //Pause video
   // p.addEventListener(touchEvent, function (e) {

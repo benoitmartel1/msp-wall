@@ -4,7 +4,7 @@ var range;
 var selectedIndex = 0;
 var selectedThreshold = 8;
 var transitionThreshold = 30;
-var visibleThreshold = 90;
+var visibleThreshold = 100;
 var transitionRange = transitionThreshold - selectedThreshold;
 var waitingRange = visibleThreshold - transitionThreshold;
 
@@ -24,7 +24,6 @@ window.addEventListener('load', (e) => {
   document
     .querySelector('.carousel-wrapper')
     .addEventListener('touchmove', function (e) {
-
       const touch = e.touches[0];
 
       if (previousTouch) {
@@ -39,7 +38,6 @@ window.addEventListener('load', (e) => {
       }
 
       previousTouch = touch;
-
     });
 
   document
@@ -54,30 +52,49 @@ window.addEventListener('load', (e) => {
   document
     .querySelector('.carousel-wrapper')
     .addEventListener(touchEnd, async function (e) {
-
       if (hasMoved) {
         previousTouch = null;
         snapToClosestSpot();
-        console.log('snapping')
+        console.log('snapping');
       } else {
+        //If carousel was not moving, then it's a click
 
-        var autoRotateValue =
-          e.target.querySelector(':scope > img')?.dataset.autoRotate;
-        console.log(autoRotateValue)
-        if (true) {
-          // if (autoRotateValue == 0) {
-          var src = e.target.querySelector('img').src;
+        //Define where on carousel-wrapper the click happened
+        var wrapperWidth = document
+          .querySelector('.carousel-wrapper')
+          .getBoundingClientRect().width;
+        var arrowWidth = document
+          .querySelector('.carousel-wrapper .arrow')
+          .getBoundingClientRect().width;
+
+        var hotZoneWidth = wrapperWidth - arrowWidth * 2;
+
+        var clickedZone = Math.floor(
+          ((e.pageX - arrowWidth) / hotZoneWidth) * 5
+        );
+
+        //If the user clicked one of the 5 images in carousel, retrieve which one
+        if (clickedZone >= 0 && clickedZone < 5) {
+          var sorted = Array.from(
+            document.querySelectorAll(
+              ".carousel-wrapper img:not([data-auto-rotate='undefined'])"
+            )
+          ).sort(function (a, b) {
+            return a.dataset.autoRotate - b.dataset.autoRotate;
+          });
+
+          //Get the name of the clicked image
+          var src = sorted[clickedZone].getAttribute('src');
           var videoName = src.substring(
             src.lastIndexOf('/') + 1,
             src.lastIndexOf('.')
           );
+          //   console.log(videoName);
+
           await hideInfos();
           showPlayer(videoName);
-        } else if (autoRotateValue !== undefined) {
-          autoRotate(autoRotateValue);
         }
       }
-
     });
 
   function initCarousel() {
@@ -153,9 +170,10 @@ window.addEventListener('load', (e) => {
       }
       function setScale(a) {
         if (a >= 0 && a <= selectedThreshold) {
-          return 1;
+          return 0.8;
         } else if (a > selectedThreshold && a <= transitionThreshold) {
-          return 1 - ((a - selectedThreshold) / transitionRange) * 0.2;
+          return 0.8;
+          // return 1 - ((a - selectedThreshold) / transitionRange) * 0.2;
         } else if (a < visibleThreshold) {
           return 0.8 + ((a - transitionThreshold) / waitingRange) * 0.08;
         } else {
@@ -164,15 +182,25 @@ window.addEventListener('load', (e) => {
       }
       function setAutoRotate(a) {
         var absA = Math.abs(a);
-        if (absA >= 0 && absA <= selectedThreshold) {
-          return 0;
-        } else if (absA > selectedThreshold && absA < visibleThreshold) {
-          // return Math.ceil((absA - selectedThreshold) / range) * (-1 * (a / absA));
-          return -1 * (a / absA);
+        if (absA >= 0 && absA < visibleThreshold) {
+          return Math.floor(
+            ((a + visibleThreshold) / (visibleThreshold * 2)) * 5
+          );
         } else {
           return undefined;
         }
       }
+      //   function setAutoRotate(a) {
+      //     var absA = Math.abs(a);
+      //     if (absA >= 0 && absA <= selectedThreshold) {
+      //       return 0;
+      //     } else if (absA > selectedThreshold && absA < visibleThreshold) {
+      //       // return Math.ceil((absA - selectedThreshold) / range) * (-1 * (a / absA));
+      //       return -1 * (a / absA);
+      //     } else {
+      //       return undefined;
+      //     }
+      //   }
       function setPosX(angle) {
         var a = Math.abs(angle);
         var direction = (angle / Math.abs(angle)) * 1;
@@ -186,7 +214,7 @@ window.addEventListener('load', (e) => {
         } else if (a < visibleThreshold) {
           //If is visible
           return (
-            1 - ((a - transitionThreshold) / waitingRange) * -60 * direction
+            1 - ((a - transitionThreshold) / waitingRange) * -100 * direction
           );
         }
       }
