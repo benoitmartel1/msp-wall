@@ -47,13 +47,13 @@ video::-webkit-media-text-track-display-backdrop {
   left: 4%;
   padding: 80px;
   justify-content: space-between;
-  top: 47.5%;
+  top: 75%;
   pointer-events: none;
   will-change: width;
 }
 
 #headset.visible {
-  opacity: .8;
+  opacity: 0.8;
   width: 100%;
   left: 0;
 }

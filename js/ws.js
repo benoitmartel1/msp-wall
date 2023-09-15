@@ -3,7 +3,7 @@ function WebSocketTest() {
     // console.log('WebSocket is supported by your Browser!');
 
     // Let us open a web socket
-    var ws = new WebSocket('ws://192.168.0.167:1880/msp/');
+    var ws = new WebSocket('ws://169.254.132.107:1880/msp/');
 
     ws.onopen = function () {
       //   console.log(ws);

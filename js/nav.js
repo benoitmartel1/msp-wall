@@ -102,11 +102,11 @@ async function showMenu() {
 
   document.querySelectorAll('.title').forEach((el) => {
     el.classList.remove('animation-disabled');
-    el.classList.remove('disabled');
+    // el.classList.remove('disabled');
   });
 
-  clearInterval(titleInterval);
-  setTitleInterval();
+  //   clearInterval(titleInterval);
+  //   setTitleInterval();
 
   await setLoopSrc('normal');
 
