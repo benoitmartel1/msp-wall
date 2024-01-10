@@ -156,6 +156,9 @@ function initVideoListeners(p) {
   //   }
   // });
   p.onended = async function (event) {
+    p.removeAttribute('src'); // empty source
+    p.load();
+    console.log(p.src);
     // await hidePlayer();
     showInfos();
   };
