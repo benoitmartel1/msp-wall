@@ -68,6 +68,7 @@ async function showPlayer(videoName) {
     // displayLog('show Player');
     player.classList.add('front');
     player.classList.add('visible');
+    player.classList.add('opaque');
     //Hide Nav
     document.querySelector('#nav').style.left = '-100px';
 
@@ -158,7 +159,7 @@ function initVideoListeners(p) {
   p.onended = async function (event) {
     p.removeAttribute('src'); // empty source
     p.load();
-    console.log(p.src);
+    // console.log(p.src);
     // await hidePlayer();
     showInfos();
   };

@@ -50,10 +50,8 @@ async function intializeInfos() {
     img.addEventListener('load', fadeImg);
 
     img.addEventListener(touchEvent, async function (e) {
-
       await hideInfos();
       showPlayer(c.path);
-
     });
   });
 }
@@ -87,9 +85,11 @@ function getQr(video) {
     'https://raw.githubusercontent.com/benoitmartel1/msp-wall/main/qr.json?date=' +
     new Date();
 
+  console.log(qrAddress);
   axios
     .get(qrAddress)
     .then((res) => {
+      console.log(res);
       //If web access
       if (res.data.qrCodes)
         localStorage.setItem('qr', JSON.stringify(res.data));

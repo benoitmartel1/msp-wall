@@ -63,6 +63,7 @@ body {
   width: 100px;
   height: 100px;
   pointer-events: none;
+  /* cursor: pointer; */
   /* transform-style: preserve-3d; */
 }
 
@@ -70,5 +71,6 @@ body {
   height: 100%;
   user-select: none;
   pointer-events: none;
+  /* cursor: pointer; */
   /* transform-style: preserve-3d; */
 }

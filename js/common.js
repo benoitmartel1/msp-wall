@@ -76,7 +76,7 @@ async function setLoopSrc(type) {
     var videoPath = 'videos/loop/' + type + '/' + borne.id + '.mp4';
     if (l.src == '') {
       l.src = videoPath;
-      l.type = "video/mp4"
+      l.type = 'video/mp4';
 
       // l.addEventListener('ended', function (e) {
       //   displayLog('ended')
@@ -84,10 +84,9 @@ async function setLoopSrc(type) {
       //   this.play()
       // })
       l.oncanplay = async function (event) {
-
         // displayLog('play')
         l.classList.remove('disabled');
-        await delay(1500)
+        await delay(1500);
         resolve();
       };
     } else {
@@ -95,7 +94,6 @@ async function setLoopSrc(type) {
     }
   });
 }
-
 
 function displayLog(msg) {
   log.innerText = msg;
@@ -107,7 +105,7 @@ function displayLog(msg) {
 function setIdleTimeout() {
   console.log('set idle');
   idleTimeout = setTimeout(() => {
-    console.log('Timeout')
+    console.log('Timeout');
     console.log('back from timeout');
     onBack();
   }, idleTimeoutDuration);

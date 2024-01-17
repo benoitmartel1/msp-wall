@@ -112,6 +112,7 @@ async function showMenu() {
 
   menu.classList.add('front');
   menu.classList.add('visible');
+  menu.classList.add('opaque');
 
   await delay(700);
 
@@ -126,12 +127,12 @@ async function hideMenu() {
 
   switchTitles = false;
   menu.classList.remove('front');
-  menu.classList.remove('visible');
-
-  // document.querySelector('#loop-video').classList.add('disabled');
+  menu.classList.remove('opaque');
 
   await delay(800);
-  // document.getElementById('loop-video').pause();
+
+  menu.classList.remove('visible');
+
   await fadeOutVideo(document.getElementById('loop-video'), false);
 }
 
@@ -143,15 +144,18 @@ async function hidePlayer() {
   document.querySelector('track').src = 'vtt/empty.vtt';
   document.querySelector('.caption').style.display = 'none';
   await delay(600);
+
   await fadeOutVideo(document.getElementById('video'), true);
 
   // video.classList.add('disabled');
   // displayLog('Has faded')
 
   player.classList.remove('front');
-  player.classList.remove('visible');
+  player.classList.remove('opaque');
 
-  // await delay(3000)
+  await delay(400);
+
+  player.classList.remove('visible');
 }
 
 async function showInfos() {
@@ -167,6 +171,7 @@ async function showInfos() {
 
   infos.classList.add('front');
   infos.classList.add('visible');
+  infos.classList.add('opaque');
 
   await delay(800);
   document.querySelector('.carousel').classList.add('visible');
@@ -183,9 +188,12 @@ async function hideInfos() {
   qr.classList.add('disabled');
 
   infos.classList.remove('front');
-  infos.classList.remove('visible');
+  infos.classList.remove('opaque');
 
   await delay(800);
+
+  infos.classList.remove('visible');
+
   document.getElementById('loop-video').pause();
   await fadeOutVideo(document.getElementById('loop-video'), false);
   document.querySelector('.carousel').classList.remove('visible');

@@ -18,6 +18,8 @@ async function intializeMenu(borne) {
     //On CLICK ZONE click listener
     item.addEventListener(touchEvent, async function (e) {
       if (clickEnabled && currentSection == 'menu') {
+        console.log('clicked menu item');
+        console.log(e);
         clickEnabled = false;
         document.querySelectorAll('.choice')[index].classList.add('selected');
         document
