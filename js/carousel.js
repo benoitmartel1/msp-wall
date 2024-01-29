@@ -58,7 +58,6 @@ window.addEventListener('load', (e) => {
         console.log('snapping');
       } else {
         //If carousel was not moving, then it's a click
-
         //Define where on carousel-wrapper the click happened
         var wrapperWidth = document
           .querySelector('.carousel-wrapper')
@@ -89,7 +88,6 @@ window.addEventListener('load', (e) => {
             src.lastIndexOf('/') + 1,
             src.lastIndexOf('.')
           );
-          //   console.log(videoName);
 
           await hideInfos();
           showPlayer(videoName);

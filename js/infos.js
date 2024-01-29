@@ -1,7 +1,26 @@
 //DOM elements
 var qr, featured;
 
+//Comment out on production, used to generate clicks for testing
+//-----------------------------------------------------------------
+async function autoTriggerForTestingOnly() {
+  const videos = data.bornes.flatMap((e) => [
+    e.choices[0].path,
+    e.choices[1].path,
+  ]);
+  const random = Math.floor(Math.random() * videos.length);
+
+  await delay(4000);
+  await hideInfos();
+  showPlayer(videos[random]);
+}
+//-----------------------------------------------------------------
 async function intializeInfos() {
+  //Comment out on production, used to generate clicks for testing
+  //-----------------------------------------------------------------
+  autoTriggerForTestingOnly();
+  //-----------------------------------------------------------------
+
   qr = document.querySelector('.qr');
   featured = document.querySelector('.featured');
 
@@ -34,14 +53,10 @@ async function intializeInfos() {
 
   getQr(currentVideo);
 
-  //   await setLoopSrc();
-
   //Populate featured
   borne.choices.forEach((c) => {
     const img = document.createElement('img');
-    // if (c.path == currentVideo) {
-    //   img.classList.add('visited');
-    // }
+
     img.classList.add('disabled');
 
     img.src = 'images/videos/' + c.path + '.png';
