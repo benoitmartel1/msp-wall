@@ -43,7 +43,7 @@ function WebSocketTest() {
       console.log('Connection is closed...');
       setTimeout(function () {
         WebSocketTest();
-      }, 1000);
+      }, 5000);
     };
   } else {
     // The browser doesn't support WebSocket

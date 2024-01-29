@@ -116,6 +116,7 @@ h6 {
   transition: opacity 300ms ease-out;
   visibility: hidden;
 }
+
 #back {
   visibility: visible;
 }
@@ -141,7 +142,7 @@ h6 {
 
 video {
   opacity: 1;
-  transition: opacity 600ms ease-in-out;
+  /* transition: opacity 600ms ease-in-out; */
 }
 
 video.disabled {

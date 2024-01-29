@@ -109,16 +109,13 @@ async function showPlayer(videoName) {
       // video.volume = 1;
 
       setTimeout(() => {
-        video.play();
         // video.currentTime = video.duration - 8;
         video.classList.remove('disabled');
         video.classList.add('visible');
-
+        video.play();
         //Show Nav
         document.querySelector('#nav').style.left = 0;
         video.volume = 1.0;
-        // video.volume = 1.0;
-        // video.volume = 100;
 
         document.querySelector('.caption').style.display = showCaptions
           ? 'none'
