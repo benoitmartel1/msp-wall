@@ -217,6 +217,7 @@ window.addEventListener('load', (e) => {
         }
       }
       function setOpacity(a) {
+        // console.log(a)
         if (a >= 72) {
           return 1 - (a - 72) / (visibleThreshold - 72);
         } else {
