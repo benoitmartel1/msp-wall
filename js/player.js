@@ -25,16 +25,14 @@ window.addEventListener('load', function () {
 });
 function fadeOutVideo(video, hasSound) {
   videoIsFading = true;
-  video.classList.add('disabled');
+
   if (hasSound == true) {
-    // console.log('Setting Interval');
-    // console.log(fadeOutInterval);
+
     var fadeOutInterval = setInterval(() => {
       if (video) {
         if (video.volume > 0.05) {
           video.volume -= 0.05;
         } else {
-          console.log('clearing audio fade');
           clearInterval(fadeOutInterval);
         }
       } else {
@@ -51,12 +49,15 @@ function fadeOutVideo(video, hasSound) {
       // video.pause();
       video.removeAttribute('src');
       video.load();
+      video.classList.add('disabled');
+
       resolve();
     }, fadeDuration);
   });
 }
 
 async function showPlayer(videoName) {
+  // showBlackOverlay(false);
   currentSection = 'player';
 
   currentVideo = videoName;
@@ -101,18 +102,20 @@ async function showPlayer(videoName) {
     video.addEventListener('timeupdate', checkIfEndIsComing, false);
     video.onplay = (event) => {
       video.volume = 1.0;
-      console.log(video.volume);
+      // console.log(video.volume);
     };
     video.oncanplaythrough = (event) => {
       //Hide headset
       document.querySelector('#headset').classList.remove('visible');
       // video.volume = 1;
-
       setTimeout(() => {
+
         // video.currentTime = video.duration - 8;
         video.classList.remove('disabled');
         video.classList.add('visible');
         video.play();
+        showBlackOverlay(false)
+
         //Show Nav
         document.querySelector('#nav').style.left = 0;
         video.volume = 1.0;
@@ -130,6 +133,7 @@ async function showPlayer(videoName) {
 }
 async function checkIfEndIsComing() {
   if (this.currentTime > this.duration - 2) {
+    showBlackOverlay(true);
     // displayLog('Fadeout')
     await hidePlayer();
   }

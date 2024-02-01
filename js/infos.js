@@ -3,22 +3,26 @@ var qr, featured;
 
 //Comment out on production, used to generate clicks for testing
 //-----------------------------------------------------------------
-async function autoTriggerForTestingOnly() {
-  const videos = data.bornes.flatMap((e) => [
-    e.choices[0].path,
-    e.choices[1].path,
-  ]);
-  const random = Math.floor(Math.random() * videos.length);
-
+async function autoTriggerVideo() {
   await delay(4000);
-  await hideInfos();
-  showPlayer(videos[random]);
+  if (clickEnabled) {
+    const videos = data.bornes.flatMap((e) => [
+      e.choices[0].path,
+      e.choices[1].path,
+    ]);
+    const random = Math.floor(Math.random() * videos.length);
+    await hideInfos();
+    showPlayer(videos[random]);
+  }
 }
 //-----------------------------------------------------------------
 async function intializeInfos() {
   //Comment out on production, used to generate clicks for testing
   //-----------------------------------------------------------------
-  autoTriggerForTestingOnly();
+  if (autoTriggerMode) {
+    autoTriggerVideo();
+  }
+
   //-----------------------------------------------------------------
 
   qr = document.querySelector('.qr');

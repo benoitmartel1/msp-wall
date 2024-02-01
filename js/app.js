@@ -11,6 +11,7 @@ var isDev = true;
 var videoIsFading = false;
 var videoPaused = false;
 var clickEnabled = false;
+var autoTriggerMode = false;
 
 var currentVideo = null;
 var currentSection = 'menu';
@@ -48,6 +49,9 @@ window.addEventListener('load', function () {
 
   fillScreen(isMobile);
 
+  //Get autoTriggerMode
+  autoTriggerMode = window.localStorage.getItem('autoTriggerMode') == "true";
+
   //Get data for all bornes
   bornes = data.bornes;
   //Get borne number
@@ -59,7 +63,7 @@ window.addEventListener('load', function () {
 
   intializeMenu(borne);
   initVideoListeners(video);
-  hideInfos();
-  hidePlayer();
+  // hideInfos();
+  // hidePlayer();
   showMenu();
 });

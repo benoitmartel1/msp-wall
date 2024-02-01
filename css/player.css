@@ -36,6 +36,8 @@ video::-webkit-media-text-track-display-backdrop {
   background-color: rgba(0, 0, 0, 0) !important;
 }
 
+
+
 #headset {
   transform: translateZ();
   transition: all 600ms ease;

@@ -72,18 +72,29 @@ function onSecret() {
 }
 
 async function onInfos() {
+  showBlackOverlay(true);
   currentSection == 'player' ? await hidePlayer() : await hideMenu();
   //   await delay(4000);
   showInfos();
 }
 
 async function onBack() {
+  showBlackOverlay(true);
+
   currentSection == 'player' ? await hidePlayer() : await hideInfos();
   // displayLog('showMenu')
   showMenu();
 }
+function showBlackOverlay(show) {
+  if (show) {
+    document.querySelector('.blackOverlay').classList.remove('hidden');
+  } else {
+    document.querySelector('.blackOverlay').classList.add('hidden');
+  }
+}
 
 async function showMenu() {
+  // showBlackOverlay(false);
   currentSection = 'menu';
 
   currentVideo = null;
@@ -102,13 +113,11 @@ async function showMenu() {
 
   document.querySelectorAll('.title').forEach((el) => {
     el.classList.remove('animation-disabled');
-    // el.classList.remove('disabled');
   });
 
-  //   clearInterval(titleInterval);
-  //   setTitleInterval();
 
   await setLoopSrc('normal');
+  showBlackOverlay(false)
 
   menu.classList.add('front');
   menu.classList.add('visible');
@@ -116,10 +125,17 @@ async function showMenu() {
 
   await delay(700);
 
+
   clickEnabled = true;
+  if (autoTriggerMode) {
+    await delay(2000);
+    // console.log('select' + 0)
+    onSelectMenuItem(0);
+  }
 }
 
 async function hideMenu() {
+  showBlackOverlay(true);
   clickEnabled = false;
   closeNav();
   //Hide Nav
@@ -132,7 +148,6 @@ async function hideMenu() {
   await delay(800);
 
   menu.classList.remove('visible');
-
   await fadeOutVideo(document.getElementById('loop-video'), false);
 }
 
@@ -159,10 +174,13 @@ async function hidePlayer() {
 }
 
 async function showInfos() {
+
   currentSection = 'infos';
 
   intializeInfos();
   await setLoopSrc('blurred');
+
+  showBlackOverlay(false);
 
   document.querySelector('#nav .info').classList.add('disabled');
   document.querySelector('#nav .back').classList.add('disabled');
@@ -181,6 +199,7 @@ async function showInfos() {
 }
 
 async function hideInfos() {
+  showBlackOverlay(true);
   clickEnabled = false;
   closeNav();
   document.querySelector('#nav').style.left = '-100px';
@@ -194,7 +213,6 @@ async function hideInfos() {
 
   infos.classList.remove('visible');
 
-  document.getElementById('loop-video').pause();
   await fadeOutVideo(document.getElementById('loop-video'), false);
   document.querySelector('.carousel').classList.remove('visible');
 }

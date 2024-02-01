@@ -3,6 +3,30 @@ var titleSwitchIntervalDuration = 4000;
 var titlesAreSame = [false, false];
 var switchTitles = true;
 
+async function onSelectMenuItem(index) {
+
+  if (clickEnabled && currentSection == 'menu') {
+
+    clickEnabled = false;
+    document.querySelectorAll('.choice')[index].classList.add('selected');
+    document
+      .querySelectorAll('.choice')
+    [Math.abs(index - 1)].classList.add('disabled');
+
+    //Disable shake on buttons
+    document.querySelectorAll('.title').forEach((el) => {
+      el.classList.add('animation-disabled');
+    });
+    document.querySelector('#nav').style.left = '-100px';
+
+    await delay(1500);
+
+    await hideMenu();
+
+    showPlayer(borne.choices[index].path);
+  }
+}
+
 async function intializeMenu(borne) {
   document.querySelector('.choices').classList.remove('alt');
 
@@ -17,27 +41,7 @@ async function intializeMenu(borne) {
 
     //On CLICK ZONE click listener
     item.addEventListener(touchEvent, async function (e) {
-      if (clickEnabled && currentSection == 'menu') {
-        console.log('clicked menu item');
-        console.log(e);
-        clickEnabled = false;
-        document.querySelectorAll('.choice')[index].classList.add('selected');
-        document
-          .querySelectorAll('.choice')
-          [Math.abs(index - 1)].classList.add('disabled');
-
-        //Disable shake on buttons
-        document.querySelectorAll('.title').forEach((el) => {
-          el.classList.add('animation-disabled');
-        });
-        document.querySelector('#nav').style.left = '-100px';
-
-        await delay(1500);
-
-        await hideMenu();
-
-        showPlayer(borne.choices[index].path);
-      }
+      onSelectMenuItem(index);
     });
   });
 

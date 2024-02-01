@@ -33,14 +33,7 @@
 	}
 
 	#bornes {
-
-		position: absolute;
-
-		/* border: 2px yellow solid; */
-		/* display: flex; */
 		box-sizing: border-box;
-		height: 100%;
-		/* width: 100%; */
 	}
 
 	#bornes .tile {
@@ -55,26 +48,52 @@
 		min-width: 600px;
 		height: 600px;
 	}
+
+	input {
+		transform: scale(10);
+	}
+
+	label {
+		margin-left: 60px;
+		vertical-align: middle;
+
+	}
+
+	form {
+		margin-top: 100px;
+
+	}
 </style>
 
 <body>
 	<div id="app">
+
+
 		<h1>Numéro de la borne.</h1>
 		<div id="bornes"></div>
+		<form>
+			<input type="checkbox" id="autoTriggerMode" name="vehicle1" value="Bike"
+				onclick="changeAutoTriggerMode(this)">
+			<label for="autoTriggerMode">Mode automatique</label>
+		</form>
+
 	</div>
 
 
 	<script>
 		var log;
+		function changeAutoTriggerMode(cb) {
+			window.localStorage.setItem('autoTriggerMode', cb.checked)
+		};
 		window.onload = function () {
-			document.addEventListener('keyup', (e) => {
 
-				window.localStorage.setItem('borne', e.key)
-				window.location = "app.html"
-			});
 
-			fillScreen()
-			console.log(window.localStorage.getItem('borne'))
+			fillScreen();
+
+			if (window.localStorage.getItem('autoTriggerMode') == "true") {
+				document.getElementById("autoTriggerMode").checked = true;
+			}
+
 			if (window.localStorage.getItem('borne')) {
 				window.location = "app.html"
 			}
