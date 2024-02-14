@@ -59,7 +59,9 @@ function closeNav() {
 function onSecret() {
   secretCount++;
   if (secretCount > 2) {
-    window.localStorage.clear();
+    // window.localStorage.clear();
+    window.localStorage.removeItem('borne');
+
     window.location = 'index.html';
   } else {
     clearTimeout(secretTimer);
@@ -72,14 +74,14 @@ function onSecret() {
 }
 
 async function onInfos() {
-  showBlackOverlay(true);
+  //   showBlackOverlay(true);
   currentSection == 'player' ? await hidePlayer() : await hideMenu();
   //   await delay(4000);
   showInfos();
 }
 
 async function onBack() {
-  showBlackOverlay(true);
+  //   showBlackOverlay(true);
 
   currentSection == 'player' ? await hidePlayer() : await hideInfos();
   // displayLog('showMenu')
@@ -115,9 +117,8 @@ async function showMenu() {
     el.classList.remove('animation-disabled');
   });
 
-
   await setLoopSrc('normal');
-  showBlackOverlay(false)
+  showBlackOverlay(false);
 
   menu.classList.add('front');
   menu.classList.add('visible');
@@ -125,9 +126,8 @@ async function showMenu() {
 
   await delay(700);
 
-
   clickEnabled = true;
-  if (autoTriggerMode) {
+  if (autoTriggerEnabled) {
     await delay(2000);
     // console.log('select' + 0)
     onSelectMenuItem(0);
@@ -152,6 +152,7 @@ async function hideMenu() {
 }
 
 async function hidePlayer() {
+  showBlackOverlay(true);
   clickEnabled = false;
   //Hide Nav
   document.querySelector('#nav').style.left = '-100px';
@@ -174,7 +175,6 @@ async function hidePlayer() {
 }
 
 async function showInfos() {
-
   currentSection = 'infos';
 
   intializeInfos();
@@ -185,8 +185,9 @@ async function showInfos() {
   document.querySelector('#nav .info').classList.add('disabled');
   document.querySelector('#nav .back').classList.add('disabled');
 
-  document.querySelector('#nav').style.left = '0';
-
+  if (!presentationMode) {
+    document.querySelector('#nav').style.left = '0';
+  }
   infos.classList.add('front');
   infos.classList.add('visible');
   infos.classList.add('opaque');

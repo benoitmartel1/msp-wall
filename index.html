@@ -28,7 +28,7 @@
 	}
 
 	h1 {
-		margin-top: 600px;
+		margin-top: 200px;
 		font-size: 1em;
 	}
 
@@ -59,9 +59,29 @@
 
 	}
 
-	form {
-		margin-top: 100px;
+	.setting {
+		/* margin-top: 100px; */
+		display: flex;
+		/* justify-content: start; */
+		/* align-items: start; */
+		margin: 100px 0;
+	}
 
+	.checkboxes {
+		width: 80%;
+		margin: auto;
+		text-align: left;
+	}
+
+	input[type=checkbox] {
+		margin: 70px 0 0;
+		/* line-height: normal; */
+		width: 10px;
+		height: 10px;
+	}
+
+	.setting div {
+		margin-left: 120px;
 	}
 </style>
 
@@ -71,27 +91,37 @@
 
 		<h1>Numéro de la borne.</h1>
 		<div id="bornes"></div>
-		<form>
-			<input type="checkbox" id="autoTriggerMode" name="vehicle1" value="Bike"
-				onclick="changeAutoTriggerMode(this)">
-			<label for="autoTriggerMode">Mode automatique</label>
-		</form>
-
+		<div class="checkboxes">
+			<div class="setting">
+				<input type="checkbox" id="presentationEnabled" onclick="changePresentation(this)">
+				<div>Diffuse la vidéo en mode <i>Présentation de groupe</i></div>
+			</div>
+			<div class="setting">
+				<input type="checkbox" id="autoTriggerEnabled" onclick="changeAutoTrigger(this)">
+				<div>Mode <i>Débogage</i></div>
+			</div>
+		</div>
 	</div>
 
 
 	<script>
 		var log;
-		function changeAutoTriggerMode(cb) {
-			window.localStorage.setItem('autoTriggerMode', cb.checked)
+		function changePresentation(cb) {
+			window.localStorage.setItem('presentationEnabled', cb.checked)
+		};
+		function changeAutoTrigger(cb) {
+			window.localStorage.setItem('autoTriggerEnabled', cb.checked)
 		};
 		window.onload = function () {
 
 
 			fillScreen();
 
-			if (window.localStorage.getItem('autoTriggerMode') == "true") {
-				document.getElementById("autoTriggerMode").checked = true;
+			if (window.localStorage.getItem('autoTriggerEnabled') == "true") {
+				document.getElementById("autoTriggerEnabled").checked = true;
+			}
+			if (window.localStorage.getItem('presentationEnabled') == "true") {
+				document.getElementById("presentationEnabled").checked = true;
 			}
 
 			if (window.localStorage.getItem('borne')) {

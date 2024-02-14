@@ -19,7 +19,7 @@ async function autoTriggerVideo() {
 async function intializeInfos() {
   //Comment out on production, used to generate clicks for testing
   //-----------------------------------------------------------------
-  if (autoTriggerMode) {
+  if (autoTriggerEnabled) {
     autoTriggerVideo();
   }
 
@@ -57,24 +57,28 @@ async function intializeInfos() {
 
   getQr(currentVideo);
 
-  //Populate featured
-  borne.choices.forEach((c) => {
-    const img = document.createElement('img');
+  document.querySelector('#infos .bottom').style.visibility =
+    presentationMode == true ? 'hidden' : 'visible';
 
-    img.classList.add('disabled');
+  if (!presentationMode) {
+    //Populate featured
+    borne.choices.forEach((c) => {
+      const img = document.createElement('img');
 
-    img.src = 'images/videos/' + c.path + '.png';
-    featured.append(img);
+      img.classList.add('disabled');
 
-    img.addEventListener('load', fadeImg);
+      img.src = 'images/videos/' + c.path + '.png';
+      featured.append(img);
 
-    img.addEventListener(touchEvent, async function (e) {
-      await hideInfos();
-      showPlayer(c.path);
+      img.addEventListener('load', fadeImg);
+
+      img.addEventListener(touchEvent, async function (e) {
+        await hideInfos();
+        showPlayer(c.path);
+      });
     });
-  });
+  }
 }
-
 function fadeImg() {
   setTimeout(() => {
     this.classList.remove('disabled');

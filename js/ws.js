@@ -14,26 +14,39 @@ function WebSocketTest() {
 
     ws.onmessage = async function (evt) {
       var message = JSON.parse(evt.data).payload;
-      //   console.log(message);
-      if (message == 'play' && currentSection == 'player') {
-        document.querySelector('#video').play();
-      } else if (message == 'pause' && currentSection == 'player') {
-        document.querySelector('#video').pause();
-      } else if (parseInt(message) > 0) {
-        if (clickEnabled) {
-          var filteredBornes = data.bornes.flatMap((e) => e.choices);
-          var requestedVideoName = filteredBornes.find(
-            (b) => b.id == message
-          ).path;
 
-          if (currentSection == 'menu') {
-            await hideMenu();
-          } else if (currentSection == 'player') {
-            await hidePlayer();
-          } else if (currentSection == 'infos') {
-            await hideInfos();
+      if (presentationEnabled) {
+        if (message == 'presentation_on') {
+          presentationMode = true;
+          if (currentSection !== 'menu') {
+            showBlackOverlay(true);
+            onBack();
           }
-          showPlayer(requestedVideoName);
+        } else if (message == 'presentation_off') {
+          presentationMode = false;
+        }
+        if (presentationMode) {
+          if (message == 'play' && currentSection == 'player') {
+            document.querySelector('#video').play();
+          } else if (message == 'pause' && currentSection == 'player') {
+            document.querySelector('#video').pause();
+          } else if (parseInt(message) > 0) {
+            if (clickEnabled) {
+              var filteredBornes = data.bornes.flatMap((e) => e.choices);
+              var requestedVideoName = filteredBornes.find(
+                (b) => b.id == message
+              ).path;
+
+              if (currentSection == 'menu') {
+                await hideMenu();
+              } else if (currentSection == 'player') {
+                await hidePlayer();
+              } else if (currentSection == 'infos') {
+                await hideInfos();
+              }
+              showPlayer(requestedVideoName);
+            }
+          }
         }
       }
     };

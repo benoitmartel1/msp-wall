@@ -4,14 +4,12 @@ var titlesAreSame = [false, false];
 var switchTitles = true;
 
 async function onSelectMenuItem(index) {
-
-  if (clickEnabled && currentSection == 'menu') {
-
+  if (clickEnabled && currentSection == 'menu' && !presentationMode) {
     clickEnabled = false;
     document.querySelectorAll('.choice')[index].classList.add('selected');
     document
       .querySelectorAll('.choice')
-    [Math.abs(index - 1)].classList.add('disabled');
+      [Math.abs(index - 1)].classList.add('disabled');
 
     //Disable shake on buttons
     document.querySelectorAll('.title').forEach((el) => {

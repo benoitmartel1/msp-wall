@@ -27,7 +27,6 @@ function fadeOutVideo(video, hasSound) {
   videoIsFading = true;
 
   if (hasSound == true) {
-
     var fadeOutInterval = setInterval(() => {
       if (video) {
         if (video.volume > 0.05) {
@@ -109,15 +108,17 @@ async function showPlayer(videoName) {
       document.querySelector('#headset').classList.remove('visible');
       // video.volume = 1;
       setTimeout(() => {
-
         // video.currentTime = video.duration - 8;
         video.classList.remove('disabled');
         video.classList.add('visible');
         video.play();
-        showBlackOverlay(false)
+        showBlackOverlay(false);
 
         //Show Nav
-        document.querySelector('#nav').style.left = 0;
+        if (!presentationMode) {
+          document.querySelector('#nav').style.left = 0;
+        }
+
         video.volume = 1.0;
 
         document.querySelector('.caption').style.display = showCaptions

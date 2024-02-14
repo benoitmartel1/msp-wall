@@ -11,7 +11,9 @@ var isDev = true;
 var videoIsFading = false;
 var videoPaused = false;
 var clickEnabled = false;
-var autoTriggerMode = false;
+var autoTriggerEnabled = false;
+var presentationEnabled = false;
+var presentationMode = false;
 
 var currentVideo = null;
 var currentSection = 'menu';
@@ -49,8 +51,12 @@ window.addEventListener('load', function () {
 
   fillScreen(isMobile);
 
-  //Get autoTriggerMode
-  autoTriggerMode = window.localStorage.getItem('autoTriggerMode') == "true";
+  //Get autoTriggerEnabled
+  autoTriggerEnabled =
+    window.localStorage.getItem('autoTriggerEnabled') == 'true';
+  //Get If reactive to presentation
+  presentationEnabled =
+    window.localStorage.getItem('presentationEnabled') == 'true';
 
   //Get data for all bornes
   bornes = data.bornes;

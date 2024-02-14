@@ -9,7 +9,6 @@ var transitionRange = transitionThreshold - selectedThreshold;
 var waitingRange = visibleThreshold - transitionThreshold;
 
 window.addEventListener('load', (e) => {
-  //   var borne = data.bornes[1];
   var filteredBornes = data.bornes
     .flatMap((e) => e.choices)
     .filter(
@@ -188,17 +187,6 @@ window.addEventListener('load', (e) => {
           return undefined;
         }
       }
-      //   function setAutoRotate(a) {
-      //     var absA = Math.abs(a);
-      //     if (absA >= 0 && absA <= selectedThreshold) {
-      //       return 0;
-      //     } else if (absA > selectedThreshold && absA < visibleThreshold) {
-      //       // return Math.ceil((absA - selectedThreshold) / range) * (-1 * (a / absA));
-      //       return -1 * (a / absA);
-      //     } else {
-      //       return undefined;
-      //     }
-      //   }
       function setPosX(angle) {
         var a = Math.abs(angle);
         var direction = (angle / Math.abs(angle)) * 1;
